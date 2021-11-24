@@ -9,4 +9,5 @@
  * @Author: windowdotonload
  */
 import Vue from "./runtime/index";
-console.log("thisi sentry-runtime=====>");
+
+new Vue();

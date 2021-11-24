@@ -3,6 +3,11 @@
  * @version:
  * @Author: windowdotonload
  */
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: windowdotonload
+ */
 
 const aliases = require("./alias");
 const path = require("path");
@@ -23,20 +28,20 @@ const builds = {
   //     env: "development",
   //   },
   // runtime-only production build (Browser)
-  "web-runtime-prod": {
-    entry: resolve("web/entry-runtime.js"),
-    dest: resolve("dist/vue.runtime.min.js"),
-    format: "umd",
-    env: "production",
-  },
+  // "web-runtime-prod": {
+  //   entry: resolve("web/entry-runtime.js"),
+  //   dest: resolve("dist/vue.runtime.min.js"),
+  //   format: "umd",
+  //   env: "production",
+  // },
   // Runtime+compiler development build (Browser)
-  //   "web-full-dev": {
-  //     entry: resolve("web/entry-runtime-with-compiler.js"),
-  //     dest: resolve("dist/vue.js"),
-  //     format: "umd",
-  //     env: "development",
-  //     alias: { he: "./entity-decoder" },
-  //   },
+  "web-full-dev": {
+    entry: resolve("web/entry-runtime-with-compiler.js"),
+    dest: resolve("dist/vue.js"),
+    format: "umd",
+    env: "development",
+    alias: { he: "./entity-decoder" },
+  },
 };
 
 function genConfig(name) {
