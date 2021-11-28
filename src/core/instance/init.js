@@ -10,7 +10,7 @@ export function initMixin(Vue) {
     } else {
       this.$options = options;
     }
-    if ($options.el) {
+    if (vm.$options.el) {
       vm.$mount(this.$options.el);
     }
   };

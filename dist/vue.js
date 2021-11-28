@@ -15,7 +15,7 @@
       if (options && options._isComponent) ; else {
         this.$options = options;
       }
-      if ($options.el) {
+      if (vm.$options.el) {
         vm.$mount(this.$options.el);
       }
     };
