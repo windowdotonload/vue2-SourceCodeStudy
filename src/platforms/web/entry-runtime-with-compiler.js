@@ -10,4 +10,4 @@
  */
 import Vue from "./runtime/index";
 
-new Vue();
+export default Vue;
