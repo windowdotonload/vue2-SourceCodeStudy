@@ -10,7 +10,15 @@
    * @Author: windowdotonload
    */
   function initMixin(Vue) {
-    Vue.prototype._init = function (options) {};
+    Vue.prototype._init = function (options) {
+      const vm = this;
+      if (options && options._isComponent) ; else {
+        this.$options = options;
+      }
+      if ($options.el) {
+        vm.$mount(this.$options.el);
+      }
+    };
   }
 
   /*
@@ -27,13 +35,6 @@
   function Vue(options) {
     console.log("this is VUE =======>", options);
     this._init(options);
-    if (options && options._isComponent) ; else {
-      this.$options = options;
-    }
-    //   if (process.env.NODE_ENV !== "production" && !(this instanceof Vue)) {
-    //     warn("Vue is a constructor and should be called with the `new` keyword");
-    //   }
-    //   this._init(options);
   }
 
   initMixin(Vue);
@@ -55,6 +56,9 @@
    * @version:
    * @Author: windowdotonload
    */
+  Vue.prototype.$mount = function (el, hydrating) {
+    console.log("this is $mount");
+  };
 
   return Vue;
 
