@@ -77,7 +77,20 @@
    */
   Vue.prototype.$mount = function (el, hydrating) {
     el = query(el);
+    const options = this.$options;
+    console.log("this is options ==>", options);
     console.log("this is $mount", el);
+
+    if (!options.render) {
+      let template = options.template;
+      if (template) {
+        let render = function () {
+          console.log("this is render in template");
+        };
+        options.render = render;
+      }
+      console.log("this is $options ===>", this.$options);
+    }
   };
 
   return Vue;
