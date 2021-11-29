@@ -56,8 +56,28 @@
    * @version:
    * @Author: windowdotonload
    */
+
+  function query(el) {
+    if (typeof el === "string") {
+      const selected = document.querySelector(el);
+      if (!selected) {
+        console.warn("Cannot find element: " + el);
+        return document.createElement("div");
+      }
+      return selected;
+    } else {
+      return el;
+    }
+  }
+
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
   Vue.prototype.$mount = function (el, hydrating) {
-    console.log("this is $mount");
+    el = query(el);
+    console.log("this is $mount", el);
   };
 
   return Vue;
