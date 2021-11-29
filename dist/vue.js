@@ -51,6 +51,19 @@
    * @Author: windowdotonload
    */
 
+  function mountComponent(vm, el, hydrating) {
+    console.log("this is el in lifeCycle ==>", vm, el);
+  }
+
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
+  Vue.prototype.$mount = function (el, hydrating) {
+    return mountComponent(this, el);
+  };
+
   /*
    * @Descripttion:
    * @version:
@@ -75,22 +88,29 @@
    * @version:
    * @Author: windowdotonload
    */
+  const mount = Vue.prototype.$mount;
   Vue.prototype.$mount = function (el, hydrating) {
     el = query(el);
     const options = this.$options;
-    console.log("this is options ==>", options);
-    console.log("this is $mount", el);
 
     if (!options.render) {
       let template = options.template;
+      if (template) {
+        if (typeof template === "string") {
+          if (template.charAt(0) === "#") ; else if (template.nodeType) ; else {
+            console.warn("template not found");
+            return this;
+          }
+        }
+      }
       if (template) {
         let render = function () {
           console.log("this is render in template");
         };
         options.render = render;
       }
-      console.log("this is $options ===>", this.$options);
     }
+    mount.call(this, el, hydrating);
   };
 
   return Vue;

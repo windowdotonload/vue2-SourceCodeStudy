@@ -40,6 +40,7 @@ Vue.prototype.$mount = function (el, hydrating) {
       options.render = render;
     }
   }
+  mount.call(this, el, hydrating);
 };
 
 export default Vue;
