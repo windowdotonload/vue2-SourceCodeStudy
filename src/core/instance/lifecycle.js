@@ -3,7 +3,14 @@
  * @version:
  * @Author: windowdotonload
  */
+export function lifecycleMixin(Vue) {
+  Vue.prototype._update = function (vnode, hydrating) {};
+}
 
 export function mountComponent(vm, el, hydrating) {
-  console.log("this is el in lifeCycle ==>", vm, el);
+  vm.$el = el;
+  let updateComponent;
+  updateComponent = () => {
+    vm._update(vm._render(), hydrating);
+  };
 }
