@@ -50,9 +50,55 @@
    * @version:
    * @Author: windowdotonload
    */
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
+  function noop(a, b, c) {}
+
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
+
+  class Watcher {
+    constructor(vm, expOrFn, cb, options, isRenderWatcher) {
+      console.log("this is Watcher ===>", vm, expOrFn);
+    }
+  }
+
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
 
   function mountComponent(vm, el, hydrating) {
-    console.log("this is el in lifeCycle ==>", vm, el);
+    vm.$el = el;
+    let updateComponent;
+    vm._render = function () {
+      console.log("this is render in _render ");
+      return { vnode: "vnode" };
+    };
+    updateComponent = () => {
+      vm._update(vm._render(), hydrating);
+    };
+    new Watcher(
+      vm,
+      updateComponent,
+      noop,
+      {
+        //   before() {
+        //     if (vm._isMounted && !vm._isDestroyed) {
+        //       callHook(vm, "beforeUpdate");
+        //     }
+        //   },
+      },
+      true /* isRenderWatcher */
+    );
+    return vm;
   }
 
   /*
@@ -61,7 +107,7 @@
    * @Author: windowdotonload
    */
   Vue.prototype.$mount = function (el, hydrating) {
-    return mountComponent(this, el);
+    return mountComponent(this, el, hydrating);
   };
 
   /*
