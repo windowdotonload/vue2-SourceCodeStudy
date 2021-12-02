@@ -26,6 +26,24 @@
    * @version:
    * @Author: windowdotonload
    */
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
+  function renderMixin(Vue) {
+    console.log("this is Vue in Render");
+    Vue.prototype._render = function () {
+      let vnode = "vnode";
+      return vnode;
+    };
+  }
+
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
   // import { stateMixin } from "./state";
   // import { renderMixin } from "./render";
   // import { eventsMixin } from "./events";
@@ -38,6 +56,10 @@
   }
 
   initMixin(Vue);
+  // stateMixin(Vue);
+  // eventsMixin(Vue);
+  // lifecycleMixin(Vue);
+  renderMixin(Vue);
 
   /*
    * @Descripttion:
@@ -78,10 +100,7 @@
   function mountComponent(vm, el, hydrating) {
     vm.$el = el;
     let updateComponent;
-    vm._render = function () {
-      console.log("this is render in _render ");
-      return { vnode: "vnode" };
-    };
+
     updateComponent = () => {
       vm._update(vm._render(), hydrating);
     };
