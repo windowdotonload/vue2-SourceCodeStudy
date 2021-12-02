@@ -20,10 +20,7 @@ export function lifecycleMixin(Vue) {
 export function mountComponent(vm, el, hydrating) {
   vm.$el = el;
   let updateComponent;
-  vm._render = function () {
-    console.log("this is render in _render ");
-    return { vnode: "vnode" };
-  };
+
   updateComponent = () => {
     vm._update(vm._render(), hydrating);
   };
