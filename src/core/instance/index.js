@@ -3,7 +3,13 @@
  * @version:
  * @Author: windowdotonload
  */
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: windowdotonload
+ */
 import { initMixin } from "./init";
+import { renderMixin } from "./render";
 // import { stateMixin } from "./state";
 // import { renderMixin } from "./render";
 // import { eventsMixin } from "./events";
@@ -19,6 +25,6 @@ initMixin(Vue);
 // stateMixin(Vue);
 // eventsMixin(Vue);
 // lifecycleMixin(Vue);
-// renderMixin(Vue);
+renderMixin(Vue);
 
 export default Vue;

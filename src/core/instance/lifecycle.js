@@ -8,6 +8,7 @@
  * @version:
  * @Author: windowdotonload
  */
+
 import { noop } from "../utils/index";
 import Watcher from "../observer/watcher";
 export function lifecycleMixin(Vue) {
