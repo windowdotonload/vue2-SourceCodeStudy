@@ -9,15 +9,18 @@
    * @version:
    * @Author: windowdotonload
    */
-  function initMixin(Vue) {
-    Vue.prototype._init = function (options) {
+  function initRender(vm) {
+    vm.$createElement = (a, b, c, d) => createElement(vm, a, b, c, d, true);
+  }
+
+  function renderMixin(Vue) {
+    console.log("this is Vue in Render");
+    Vue.prototype._render = function () {
       const vm = this;
-      if (options && options._isComponent) ; else {
-        this.$options = options;
-      }
-      if (vm.$options.el) {
-        vm.$mount(this.$options.el);
-      }
+      let vnode = "vnode";
+      const { render } = vm.$options;
+      vnode = render.call(vm._renderProxy, vm.$createElement);
+      return vnode;
     };
   }
 
@@ -26,16 +29,29 @@
    * @version:
    * @Author: windowdotonload
    */
+  let initProxy;
+  initProxy = function initProxy(vm) {
+    console.log("this is initProxy");
+    vm._renderProxy = vm;
+  };
+
   /*
    * @Descripttion:
    * @version:
    * @Author: windowdotonload
    */
-  function renderMixin(Vue) {
-    console.log("this is Vue in Render");
-    Vue.prototype._render = function () {
-      let vnode = "vnode";
-      return vnode;
+
+  function initMixin(Vue) {
+    Vue.prototype._init = function (options) {
+      const vm = this;
+      if (options && options._isComponent) ; else {
+        this.$options = options;
+      }
+      initProxy(vm);
+      initRender(vm);
+      if (vm.$options.el) {
+        vm.$mount(this.$options.el);
+      }
     };
   }
 
