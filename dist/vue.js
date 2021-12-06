@@ -9,8 +9,76 @@
    * @version:
    * @Author: windowdotonload
    */
+
+  class VNode {
+    constructor(
+      tag,
+      data,
+      children,
+      text,
+      elm,
+      context,
+      componentOptions,
+      asyncFactory
+    ) {
+      this.tag = tag;
+      this.data = data;
+      this.children = children;
+      this.text = text;
+      this.elm = elm;
+      this.ns = undefined;
+      this.context = context;
+    }
+  }
+
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
+  const SIMPLE_NORMALIZE = 1;
+  const ALWAYS_NORMALIZE = 2;
+  function createElement(
+    context,
+    tag,
+    data,
+    children,
+    normalizationType,
+    alwaysNormalize
+  ) {
+    return _createElement(context, tag, data, children, normalizationType);
+  }
+
+  function _createElement(
+    context,
+    tag,
+    data,
+    children,
+    normalizationType
+  ) {
+    if (normalizationType === ALWAYS_NORMALIZE) {
+      children = normalizeChildren(children);
+    } else if (normalizationType === SIMPLE_NORMALIZE) {
+      children = simpleNormalizeChildren(children);
+    }
+    let vnode;
+    if (typeof tag === "string") {
+      // TODO
+
+      vnode = new VNode(tag, data, children, undefined, undefined, context);
+    }
+
+    return vnode;
+  }
+
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
+
   function initRender(vm) {
-    vm.$createElement = (a, b, c, d) => createElement(vm, a, b, c, d, true);
+    vm.$createElement = (a, b, c, d) => createElement(vm, a, b, c, d);
   }
 
   function renderMixin(Vue) {
@@ -120,6 +188,10 @@
     updateComponent = () => {
       vm._update(vm._render(), hydrating);
     };
+    console.log(
+      "********this is vm._render return VNODE*************",
+      vm._render()
+    );
     new Watcher(
       vm,
       updateComponent,
@@ -185,8 +257,8 @@
         }
       }
       if (template) {
-        let render = function () {
-          console.log("this is render in template");
+        let render = function (C) {
+          return C("div", "data");
         };
         options.render = render;
       }
