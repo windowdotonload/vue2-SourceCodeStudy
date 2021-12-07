@@ -5,4 +5,4 @@
  */
 import { createPatchFunction } from "../../../core/vdom/patch";
 
-export const patch = createPatchFunction({ nodeOps, modules });
+export const patch = createPatchFunction({});
