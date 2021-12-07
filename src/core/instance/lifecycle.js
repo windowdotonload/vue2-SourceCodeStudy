@@ -13,7 +13,13 @@ import { noop } from "../utils/index";
 import Watcher from "../observer/watcher";
 export function lifecycleMixin(Vue) {
   Vue.prototype._update = function (vnode, hydrating) {
-    console.log("this is _update =>", vnode);
+    const vm = this;
+    const prevVnode = vm._vnode;
+
+    if (!prevVnode) {
+      // initial render
+      vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */);
+    }
   };
 }
 
