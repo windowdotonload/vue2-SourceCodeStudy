@@ -128,34 +128,6 @@
    * @version:
    * @Author: windowdotonload
    */
-  // import { stateMixin } from "./state";
-  // import { renderMixin } from "./render";
-  // import { eventsMixin } from "./events";
-  // import { lifecycleMixin } from "./lifecycle";
-  // import { warn } from "../util/index";
-
-  function Vue(options) {
-    console.log("this is VUE =======>", options);
-    this._init(options);
-  }
-
-  initMixin(Vue);
-  // stateMixin(Vue);
-  // eventsMixin(Vue);
-  // lifecycleMixin(Vue);
-  renderMixin(Vue);
-
-  /*
-   * @Descripttion:
-   * @version:
-   * @Author: windowdotonload
-   */
-
-  /*
-   * @Descripttion:
-   * @version:
-   * @Author: windowdotonload
-   */
   /*
    * @Descripttion:
    * @version:
@@ -180,6 +152,17 @@
    * @version:
    * @Author: windowdotonload
    */
+  function lifecycleMixin(Vue) {
+    Vue.prototype._update = function (vnode, hydrating) {
+      const vm = this;
+      const prevVnode = vm._vnode;
+
+      if (!prevVnode) {
+        // initial render
+        vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */);
+      }
+    };
+  }
 
   function mountComponent(vm, el, hydrating) {
     vm.$el = el;
@@ -188,9 +171,10 @@
     updateComponent = () => {
       vm._update(vm._render(), hydrating);
     };
+
     console.log(
-      "********this is vm._render return VNODE*************",
-      vm._render()
+      "********this is vm._UPDATE return VNODE*************",
+      vm._update(vm._render(), hydrating)
     );
     new Watcher(
       vm,
@@ -213,6 +197,51 @@
    * @version:
    * @Author: windowdotonload
    */
+  // import { warn } from "../util/index";
+
+  function Vue(options) {
+    console.log("this is VUE =======>", options);
+    this._init(options);
+  }
+
+  initMixin(Vue);
+  // stateMixin(Vue);
+  // eventsMixin(Vue);
+  lifecycleMixin(Vue);
+  renderMixin(Vue);
+
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
+
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
+  function createPatchFunction() {
+    return () => {
+      console.log("this is createPatch in vdom/patch");
+    };
+  }
+
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
+
+  const patch = createPatchFunction();
+
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
+
+  Vue.prototype.__patch__ = patch;
   Vue.prototype.$mount = function (el, hydrating) {
     return mountComponent(this, el, hydrating);
   };

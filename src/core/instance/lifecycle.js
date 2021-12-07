@@ -30,9 +30,10 @@ export function mountComponent(vm, el, hydrating) {
   updateComponent = () => {
     vm._update(vm._render(), hydrating);
   };
+
   console.log(
-    "********this is vm._render return VNODE*************",
-    vm._render()
+    "********this is vm._UPDATE return VNODE*************",
+    vm._update(vm._render(), hydrating)
   );
   new Watcher(
     vm,

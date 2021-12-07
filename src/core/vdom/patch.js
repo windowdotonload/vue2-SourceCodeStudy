@@ -4,5 +4,7 @@
  * @Author: windowdotonload
  */
 export function createPatchFunction() {
-  console.log("this is createPathc in vdom/patch");
+  return () => {
+    console.log("this is createPatch in vdom/patch");
+  };
 }
