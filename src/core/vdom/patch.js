@@ -4,7 +4,7 @@
  * @Author: windowdotonload
  */
 export function createPatchFunction() {
-  return () => {
-    console.log("this is createPatch in vdom/patch");
+  return function patch(oldVnode, vnode, hydrating, removeOnly) {
+    console.log("this is createPatchFunction===========");
   };
 }
