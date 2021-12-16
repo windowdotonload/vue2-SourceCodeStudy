@@ -39,7 +39,7 @@ export function mountComponent(vm, el, hydrating) {
   };
 
   console.log(
-    "********this is vm._UPDATE return VNODE*************",
+    "********this is vm._UPDATE return VNODE in lifeCycle*************",
     vm._update(vm._render(), hydrating)
   );
   new Watcher(
