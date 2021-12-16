@@ -133,7 +133,16 @@
    * @version:
    * @Author: windowdotonload
    */
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
   function noop(a, b, c) {}
+
+  function isUndef(v) {
+    return v === undefined || v === null;
+  }
 
   /*
    * @Descripttion:
@@ -221,9 +230,27 @@
    * @version:
    * @Author: windowdotonload
    */
+
   function createPatchFunction() {
-    return () => {
-      console.log("this is createPatch in vdom/patch");
+    function createElm(
+      vnode,
+      insertedVnodeQueue,
+      parentElm,
+      refElm,
+      nested,
+      ownerArray,
+      index
+    ) {
+      console.log("this is createElm in createPathcFunction", vnode);
+    }
+
+    return function patch(oldVnode, vnode, hydrating, removeOnly) {
+      // TODO
+      console.log("this is createPatchFunction===========");
+
+      if (isUndef(oldVnode)) ; else {
+        createElm(vnode);
+      }
     };
   }
 
@@ -286,6 +313,7 @@
         }
       }
       if (template) {
+        // TODO
         let render = function (C) {
           return C("div", "data");
         };
