@@ -8,6 +8,11 @@
  * @version:
  * @Author: windowdotonload
  */
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: windowdotonload
+ */
 
 import { noop } from "../utils/index";
 import Watcher from "../observer/watcher";
@@ -16,10 +21,12 @@ export function lifecycleMixin(Vue) {
     const vm = this;
     const prevVnode = vm._vnode;
 
+    console.log("lifecycleMixin before __patch__");
     if (!prevVnode) {
       // initial render
       vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */);
     }
+    console.log("lifecycleMixin after __patch__");
   };
 }
 
