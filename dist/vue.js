@@ -172,6 +172,7 @@
         vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */);
       }
       console.log("lifecycleMixin after __patch__");
+      return 123;
     };
   }
 
@@ -184,7 +185,7 @@
     };
 
     console.log(
-      "********this is vm._UPDATE return VNODE*************",
+      "********this is vm._UPDATE return VNODE in lifeCycle*************",
       vm._update(vm._render(), hydrating)
     );
     new Watcher(
