@@ -172,7 +172,6 @@
         vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */);
       }
       console.log("lifecycleMixin after __patch__");
-      return 123;
     };
   }
 
