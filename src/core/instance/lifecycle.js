@@ -3,16 +3,6 @@
  * @version:
  * @Author: windowdotonload
  */
-/*
- * @Descripttion:
- * @version:
- * @Author: windowdotonload
- */
-/*
- * @Descripttion:
- * @version:
- * @Author: windowdotonload
- */
 
 import { noop } from "../utils/index";
 import Watcher from "../observer/watcher";
