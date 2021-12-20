@@ -1,19 +1,13 @@
-/*
- * @Descripttion:
- * @version:
- * @Author: windowdotonload
- */
-
 import { noop } from "../utils/index";
 import Watcher from "../observer/watcher";
 export function lifecycleMixin(Vue) {
   Vue.prototype._update = function (vnode, hydrating) {
     const vm = this;
     const prevVnode = vm._vnode;
-
+    console.log("this is vm in _update of lifecycle", vm, vnode);
     if (!prevVnode) {
       // initial render
-      vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */);
+      vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false);
     }
     console.log("lifecycleMixin after __patch__");
   };
@@ -28,9 +22,11 @@ export function mountComponent(vm, el, hydrating) {
   };
 
   console.log(
-    "********this is vm._UPDATE return VNODE in lifeCycle*************",
-    vm._update(vm._render(), hydrating)
+    "this is return VNODE in lifeCycle",
+    vm._update(vm._render(), hydrating),
+    vm
   );
+
   new Watcher(
     vm,
     updateComponent,

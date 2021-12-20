@@ -82,7 +82,6 @@
   }
 
   function renderMixin(Vue) {
-    console.log("this is Vue in Render");
     Vue.prototype._render = function () {
       const vm = this;
       let vnode = "vnode";
@@ -160,20 +159,14 @@
     }
   }
 
-  /*
-   * @Descripttion:
-   * @version:
-   * @Author: windowdotonload
-   */
   function lifecycleMixin(Vue) {
     Vue.prototype._update = function (vnode, hydrating) {
       const vm = this;
       const prevVnode = vm._vnode;
-
-      console.log("lifecycleMixin before __patch__");
+      console.log("this is vm in _update of lifecycle", vm, vnode);
       if (!prevVnode) {
         // initial render
-        vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */);
+        vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false);
       }
       console.log("lifecycleMixin after __patch__");
     };
@@ -188,9 +181,11 @@
     };
 
     console.log(
-      "********this is vm._UPDATE return VNODE in lifeCycle*************",
-      vm._update(vm._render(), hydrating)
+      "this is return VNODE in lifeCycle",
+      vm._update(vm._render(), hydrating),
+      vm
     );
+
     new Watcher(
       vm,
       updateComponent,
@@ -237,15 +232,29 @@
    * @Author: windowdotonload
    */
   function createElement$1(tagName, vnode) {
-    console.log("this is in createElement in node-ops of web/runtime/node-ops");
     const elm = document.createElement("div");
 
     return elm;
   }
 
+  function appendChild(node, child) {
+    node.appendChild(child);
+  }
+
+  function parentNode(node) {
+    return node.parentNode;
+  }
+
+  function tagName(node) {
+    return node.tagName;
+  }
+
   var nodeOps = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    createElement: createElement$1
+    createElement: createElement$1,
+    appendChild: appendChild,
+    parentNode: parentNode,
+    tagName: tagName
   });
 
   /*
@@ -256,6 +265,16 @@
 
   function createPatchFunction(backend) {
     const { modules, nodeOps } = backend;
+
+    function emptyNodeAt(elm) {
+      return new VNode(
+        nodeOps.tagName(elm).toLowerCase(),
+        {},
+        [],
+        undefined,
+        elm
+      );
+    }
 
     function createElm(
       vnode,
@@ -269,18 +288,33 @@
       const tag = vnode.tag;
       if (isDef(tag)) {
         vnode.elm = nodeOps.createElement(tag, vnode);
-        console.log(
-          "this is vnode.elm in  createPathcFunction of core/vdom/patch",
-          vnode
-        );
+        console.log("this is  createPathcFunction of core/vdom/patch", vnode);
+
+        insert(parentElm, vnode.elm);
+      }
+    }
+
+    function insert(parent, elm, ref) {
+      if (isDef(parent)) {
+        if (isDef(ref)) ; else {
+          nodeOps.appendChild(parent, elm);
+        }
       }
     }
 
     return function patch(oldVnode, vnode, hydrating, removeOnly) {
       // TODO
-
+      console.log("this is oldVnode in patch of core/vom", oldVnode);
       if (isUndef(oldVnode)) ; else {
-        createElm(vnode);
+        const isRealElement = isDef(oldVnode.nodeType);
+        if (isRealElement) {
+          oldVnode = emptyNodeAt(oldVnode);
+        }
+        const oldElm = oldVnode.elm;
+        console.log("this is oldElm in patch of core/vom", oldVnode);
+        const parentElm = nodeOps.parentNode(oldElm);
+        console.log("this is parentElm in patch of core/vom", parentElm);
+        createElm(vnode, null, parentElm);
       }
     };
   }

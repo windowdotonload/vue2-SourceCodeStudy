@@ -49,7 +49,7 @@ export function createPatchFunction(backend) {
 
   return function patch(oldVnode, vnode, hydrating, removeOnly) {
     // TODO
-
+    console.log("this is oldVnode in patch of core/vom", oldVnode);
     if (isUndef(oldVnode)) {
     } else {
       const isRealElement = isDef(oldVnode.nodeType);
@@ -57,8 +57,10 @@ export function createPatchFunction(backend) {
         oldVnode = emptyNodeAt(oldVnode);
       }
       const oldElm = oldVnode.elm;
+      console.log("this is oldElm in patch of core/vom", oldVnode);
       const parentElm = nodeOps.parentNode(oldElm);
-      createElm(vnode, null);
+      console.log("this is parentElm in patch of core/vom", parentElm);
+      createElm(vnode, null, parentElm);
     }
   };
 }

@@ -12,7 +12,7 @@ export function initRender(vm) {
 export function renderMixin(Vue) {
   Vue.prototype._render = function () {
     const vm = this;
-    let vnode = "vnode";
+    let vnode;
     const { render } = vm.$options;
     vnode = render.call(vm._renderProxy, vm.$createElement);
     return vnode;
