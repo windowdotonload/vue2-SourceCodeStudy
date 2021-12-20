@@ -35,6 +35,7 @@ export function createPatchFunction(backend) {
       console.log("this is createPathcFunction of core/vdom/patch", vnode);
 
       insert(parentElm, vnode.elm);
+      return "new Elm";
     }
   }
 
