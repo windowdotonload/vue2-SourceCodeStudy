@@ -4,8 +4,19 @@
  * @Author: windowdotonload
  */
 export function createElement(tagName, vnode) {
-  console.log("this is in createElement in node-ops of web/runtime/node-ops");
   const elm = document.createElement("div");
 
   return elm;
+}
+
+export function appendChild(node, child) {
+  node.appendChild(child);
+}
+
+export function parentNode(node) {
+  return node.parentNode;
+}
+
+export function tagName(node) {
+  return node.tagName;
 }

@@ -11,7 +11,6 @@ export function lifecycleMixin(Vue) {
     const vm = this;
     const prevVnode = vm._vnode;
 
-    console.log("lifecycleMixin before __patch__");
     if (!prevVnode) {
       // initial render
       vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */);

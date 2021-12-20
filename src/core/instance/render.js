@@ -10,7 +10,6 @@ export function initRender(vm) {
 }
 
 export function renderMixin(Vue) {
-  console.log("this is Vue in Render");
   Vue.prototype._render = function () {
     const vm = this;
     let vnode = "vnode";
