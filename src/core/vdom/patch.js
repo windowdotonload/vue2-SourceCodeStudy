@@ -9,9 +9,11 @@
  * @Author: windowdotonload
  */
 
-import { isUndef } from "../../shared/util";
+import { isUndef, isDef } from "../../shared/util";
 
-export function createPatchFunction() {
+export function createPatchFunction(backend) {
+  const { modules, nodeOps } = backend;
+
   function createElm(
     vnode,
     insertedVnodeQueue,
@@ -22,6 +24,10 @@ export function createPatchFunction() {
     index
   ) {
     console.log("this is createElm in createPathcFunction", vnode);
+    const tag = vnode.tag;
+    if (isDef(tag)) {
+      vnode.elm = vnode.ns;
+    }
   }
 
   return function patch(oldVnode, vnode, hydrating, removeOnly) {
@@ -32,6 +38,9 @@ export function createPatchFunction() {
     } else {
       const isRealElement = true;
       createElm(vnode);
+
+      if (isDef(tag)) {
+      }
     }
   };
 }

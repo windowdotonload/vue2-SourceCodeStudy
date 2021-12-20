@@ -144,6 +144,10 @@
     return v === undefined || v === null;
   }
 
+  function isDef(v) {
+    return v !== undefined && v !== null;
+  }
+
   /*
    * @Descripttion:
    * @version:
@@ -252,6 +256,9 @@
 
       if (isUndef(oldVnode)) ; else {
         createElm(vnode);
+        console.log("this is vnode in path of vdom/patch", vnode);
+        const tag = vnode.tag;
+        if (isDef(vnode.parent)) ;
       }
     };
   }
