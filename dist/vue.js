@@ -84,7 +84,7 @@
   function renderMixin(Vue) {
     Vue.prototype._render = function () {
       const vm = this;
-      let vnode = "vnode";
+      let vnode;
       const { render } = vm.$options;
       vnode = render.call(vm._renderProxy, vm.$createElement);
       return vnode;
@@ -232,7 +232,7 @@
    * @Author: windowdotonload
    */
   function createElement$1(tagName, vnode) {
-    const elm = document.createElement("div");
+    const elm = document.createElement(tagName);
 
     return elm;
   }
@@ -304,7 +304,7 @@
 
     return function patch(oldVnode, vnode, hydrating, removeOnly) {
       // TODO
-      console.log("this is oldVnode in patch of core/vom", oldVnode);
+
       if (isUndef(oldVnode)) ; else {
         const isRealElement = isDef(oldVnode.nodeType);
         if (isRealElement) {
@@ -312,6 +312,8 @@
         }
         const oldElm = oldVnode.elm;
         console.log("this is oldElm in patch of core/vom", oldVnode);
+        console.log("this is VNODE in patch of core/vom", vnode);
+
         const parentElm = nodeOps.parentNode(oldElm);
         console.log("this is parentElm in patch of core/vom", parentElm);
         createElm(vnode, null, parentElm);
@@ -374,7 +376,7 @@
       if (template) {
         // TODO
         let render = function (C) {
-          return C("div", "data");
+          return C("h1", "data");
         };
         options.render = render;
       }

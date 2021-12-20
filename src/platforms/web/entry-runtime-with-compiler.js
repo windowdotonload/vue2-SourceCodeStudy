@@ -46,7 +46,7 @@ Vue.prototype.$mount = function (el, hydrating) {
     if (template) {
       // TODO
       let render = function (C) {
-        return C("div", "data");
+        return C("h1", "data");
       };
       options.render = render;
     }

@@ -4,7 +4,7 @@
  * @Author: windowdotonload
  */
 export function createElement(tagName, vnode) {
-  const elm = document.createElement("div");
+  const elm = document.createElement(tagName);
 
   return elm;
 }
