@@ -3,11 +3,6 @@
  * @version:
  * @Author: windowdotonload
  */
-/*
- * @Descripttion:
- * @version:
- * @Author: windowdotonload
- */
 import { initRender } from "./render";
 import { initProxy } from "./proxy";
 

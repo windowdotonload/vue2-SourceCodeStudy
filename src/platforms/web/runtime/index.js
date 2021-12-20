@@ -1,18 +1,3 @@
-/*
- * @Descripttion:
- * @version:
- * @Author: windowdotonload
- */
-/*
- * @Descripttion:
- * @version:
- * @Author: windowdotonload
- */
-/*
- * @Descripttion:
- * @version:
- * @Author: windowdotonload
- */
 import Vue from "../../../core/index";
 import { mountComponent } from "../../../core/instance/lifecycle";
 import { patch } from "./patch";

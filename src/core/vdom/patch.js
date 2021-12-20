@@ -23,10 +23,13 @@ export function createPatchFunction(backend) {
     ownerArray,
     index
   ) {
-    console.log("this is createElm in createPathcFunction", vnode);
     const tag = vnode.tag;
     if (isDef(tag)) {
-      vnode.elm = vnode.ns;
+      vnode.elm = nodeOps.createElement(tag, vnode);
+      console.log(
+        "this is vnode.elm in  createPathcFunction of core/vdom/patch",
+        vnode
+      );
     }
   }
 
