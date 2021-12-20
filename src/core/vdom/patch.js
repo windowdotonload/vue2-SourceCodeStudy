@@ -26,24 +26,31 @@ export function createPatchFunction(backend) {
     const tag = vnode.tag;
     if (isDef(tag)) {
       vnode.elm = nodeOps.createElement(tag, vnode);
-      console.log(
-        "this is vnode.elm in  createPathcFunction of core/vdom/patch",
-        vnode
-      );
+      console.log("this is  createPathcFunction of core/vdom/patch", vnode);
+
+      insert(parentElm, vnode.elm, refElm);
+    }
+  }
+
+  function insert(parent, elm, ref) {
+    if (isDef(parent)) {
+      if (isDef(ref)) {
+        if (nodeOps.parentNode(ref) === parent) {
+          nodeOps.insertBefore(parent, elm, ref);
+        }
+      } else {
+        nodeOps.appendChild(parent, elm);
+      }
     }
   }
 
   return function patch(oldVnode, vnode, hydrating, removeOnly) {
     // TODO
-    console.log("this is createPatchFunction===========");
 
     if (isUndef(oldVnode)) {
     } else {
       const isRealElement = true;
       createElm(vnode);
-
-      if (isDef(tag)) {
-      }
     }
   };
 }

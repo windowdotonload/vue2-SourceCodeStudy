@@ -236,8 +236,27 @@
    * @version:
    * @Author: windowdotonload
    */
+  function createElement$1(tagName, vnode) {
+    console.log("this is in createElement in node-ops of web/runtime/node-ops");
+    const elm = document.createElement("div");
 
-  function createPatchFunction() {
+    return elm;
+  }
+
+  var nodeOps = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    createElement: createElement$1
+  });
+
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
+
+  function createPatchFunction(backend) {
+    const { modules, nodeOps } = backend;
+
     function createElm(
       vnode,
       insertedVnodeQueue,
@@ -247,18 +266,21 @@
       ownerArray,
       index
     ) {
-      console.log("this is createElm in createPathcFunction", vnode);
+      const tag = vnode.tag;
+      if (isDef(tag)) {
+        vnode.elm = nodeOps.createElement(tag, vnode);
+        console.log(
+          "this is vnode.elm in  createPathcFunction of core/vdom/patch",
+          vnode
+        );
+      }
     }
 
     return function patch(oldVnode, vnode, hydrating, removeOnly) {
       // TODO
-      console.log("this is createPatchFunction===========");
 
       if (isUndef(oldVnode)) ; else {
         createElm(vnode);
-        console.log("this is vnode in path of vdom/patch", vnode);
-        const tag = vnode.tag;
-        if (isDef(vnode.parent)) ;
       }
     };
   }
@@ -268,14 +290,8 @@
    * @version:
    * @Author: windowdotonload
    */
-
-  const patch = createPatchFunction();
-
-  /*
-   * @Descripttion:
-   * @version:
-   * @Author: windowdotonload
-   */
+  const modules = "";
+  const patch = createPatchFunction({ nodeOps, modules });
 
   Vue.prototype.__patch__ = patch;
   Vue.prototype.$mount = function (el, hydrating) {
