@@ -58,8 +58,8 @@ export function createPatchFunction(backend) {
         oldVnode = emptyNodeAt(oldVnode);
       }
       const oldElm = oldVnode.elm;
-      console.log("this is oldElm in patch of core/vom", oldVnode);
-      console.log("this is VNODE in patch of core/vom", vnode);
+      console.log("this is 【oldElm】 in patch of core/vom", oldVnode);
+      console.log("this is 【VNODE】 in patch of core/vom", vnode);
 
       const parentElm = nodeOps.parentNode(oldElm);
       console.log("this is parentElm in patch of core/vom", parentElm);
