@@ -4,7 +4,8 @@
  * @Author: windowdotonload
  */
 import VNode from "./vnode";
-import { isPrimitive } from "../util/index";
+import { isPrimitive } from "../utils/index";
+
 const SIMPLE_NORMALIZE = 1;
 const ALWAYS_NORMALIZE = 2;
 export function createElement(
@@ -16,7 +17,6 @@ export function createElement(
   alwaysNormalize
 ) {
   if (Array.isArray(data) || isPrimitive(data)) {
-    console.log("ok in create-element .js");
   }
   return _createElement(context, tag, data, children, normalizationType);
 }

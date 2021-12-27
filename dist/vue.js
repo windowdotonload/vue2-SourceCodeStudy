@@ -36,6 +36,40 @@
    * @version:
    * @Author: windowdotonload
    */
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
+  function noop(a, b, c) {}
+
+  function isUndef(v) {
+    return v === undefined || v === null;
+  }
+
+  function isDef(v) {
+    return v !== undefined && v !== null;
+  }
+
+  function isPrimitive(value) {
+    return (
+      typeof value === "string" ||
+      typeof value === "number" ||
+      typeof value === "symbol" ||
+      typeof value === "boolean"
+    );
+  }
+
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
   function createElement(
     context,
     tag,
@@ -44,6 +78,9 @@
     normalizationType,
     alwaysNormalize
   ) {
+    if (Array.isArray(data) || isPrimitive(data)) {
+      console.log("ok in create-element .js");
+    }
     return _createElement(context, tag, data, children);
   }
 
@@ -113,31 +150,6 @@
         vm.$mount(this.$options.el);
       }
     };
-  }
-
-  /*
-   * @Descripttion:
-   * @version:
-   * @Author: windowdotonload
-   */
-  /*
-   * @Descripttion:
-   * @version:
-   * @Author: windowdotonload
-   */
-  /*
-   * @Descripttion:
-   * @version:
-   * @Author: windowdotonload
-   */
-  function noop(a, b, c) {}
-
-  function isUndef(v) {
-    return v === undefined || v === null;
-  }
-
-  function isDef(v) {
-    return v !== undefined && v !== null;
   }
 
   /*
