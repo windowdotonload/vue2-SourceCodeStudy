@@ -3,11 +3,6 @@
  * @version:
  * @Author: windowdotonload
  */
-/*
- * @Descripttion:
- * @version:
- * @Author: windowdotonload
- */
 
 const aliases = require("./alias");
 const path = require("path");

@@ -4,8 +4,8 @@
  * @Author: windowdotonload
  */
 import VNode from "./vnode";
-import { isPrimitive } from "../utils/index";
-
+import { isPrimitive, isTrue } from "../utils/index";
+import { normalizeChildren, simpleNormalizeChildren } from "./helpers/index";
 const SIMPLE_NORMALIZE = 1;
 const ALWAYS_NORMALIZE = 2;
 export function createElement(
@@ -21,6 +21,9 @@ export function createElement(
     children = data;
     data = undefined;
   }
+  if (isTrue(alwaysNormalize)) {
+    normalizationType = ALWAYS_NORMALIZE;
+  }
   return _createElement(context, tag, data, children, normalizationType);
 }
 
@@ -32,9 +35,9 @@ export function _createElement(
   normalizationType
 ) {
   if (normalizationType === ALWAYS_NORMALIZE) {
-    // children = normalizeChildren(children);
+    children = normalizeChildren(children);
   } else if (normalizationType === SIMPLE_NORMALIZE) {
-    // children = simpleNormalizeChildren(children);
+    children = simpleNormalizeChildren(children);
   }
   let vnode, ns;
   if (typeof tag === "string") {

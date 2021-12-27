@@ -23,6 +23,10 @@ export function isDef(v) {
   return v !== undefined && v !== null;
 }
 
+export function isTrue(v) {
+  return v === true;
+}
+
 export function isPrimitive(value) {
   return (
     typeof value === "string" ||

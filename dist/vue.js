@@ -290,7 +290,7 @@
       if (isDef(tag)) {
         vnode.elm = nodeOps.createElement(tag, vnode);
         console.log("this is createPathcFunction of core/vdom/patch==", vnode);
-
+        createChildren(vnode, children);
         insert(parentElm, vnode.elm);
         return "new Elm";
       }
@@ -302,6 +302,10 @@
           nodeOps.appendChild(parent, elm);
         }
       }
+    }
+
+    function createChildren(vnode, children, insertedVnodeQueue) {
+      if (Array.isArray(children)) ; else if (isPrimitive(vnode.text)) ;
     }
 
     return function patch(oldVnode, vnode, hydrating, removeOnly) {
