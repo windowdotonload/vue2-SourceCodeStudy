@@ -30,12 +30,16 @@ export function createPatchFunction(backend) {
     index
   ) {
     const tag = vnode.tag;
+    const children = vnode.children;
     if (isDef(tag)) {
       vnode.elm = nodeOps.createElement(tag, vnode);
       console.log("this is createPathcFunction of core/vdom/patch==", vnode);
       createChildren(vnode, children);
       insert(parentElm, vnode.elm);
       return "new Elm";
+    } else {
+      vnode.elm = nodeOps.createTextNode(vnode.text);
+      insert(parentElm, vnode.elm);
     }
   }
 
@@ -50,7 +54,17 @@ export function createPatchFunction(backend) {
 
   function createChildren(vnode, children, insertedVnodeQueue) {
     if (Array.isArray(children)) {
-    } else if (isPrimitive(vnode.text)) {
+      for (let i = 0; i < children.length; ++i) {
+        createElm(
+          children[i],
+          insertedVnodeQueue,
+          vnode.elm,
+          null,
+          true,
+          children,
+          i
+        );
+      }
     }
   }
 

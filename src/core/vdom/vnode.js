@@ -3,7 +3,9 @@
  * @version:
  * @Author: windowdotonload
  */
-
+export function createTextVNode(val) {
+  return new VNode(undefined, undefined, undefined, String(val));
+}
 export default class VNode {
   constructor(
     tag,

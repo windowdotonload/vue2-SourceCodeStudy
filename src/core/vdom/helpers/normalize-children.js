@@ -1,3 +1,6 @@
+import VNode, { createTextVNode } from "../vnode";
+import { isPrimitive } from "../../../shared/util";
+
 export function simpleNormalizeChildren(children) {
   for (let i = 0; i < children.length; i++) {
     if (Array.isArray(children[i])) {
@@ -8,9 +11,5 @@ export function simpleNormalizeChildren(children) {
 }
 
 export function normalizeChildren(children) {
-  return isPrimitive(children)
-    ? [createTextVNode(children)]
-    : Array.isArray(children)
-    ? normalizeArrayChildren(children)
-    : undefined;
+  return isPrimitive(children) ? [createTextVNode(children)] : undefined;
 }

@@ -5,8 +5,11 @@
  */
 export function createElement(tagName, vnode) {
   const elm = document.createElement(tagName);
-
   return elm;
+}
+
+export function createTextNode(text) {
+  return document.createTextNode(text);
 }
 
 export function appendChild(node, child) {

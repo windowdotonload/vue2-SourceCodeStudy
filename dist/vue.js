@@ -9,7 +9,9 @@
    * @version:
    * @Author: windowdotonload
    */
-
+  function createTextVNode(val) {
+    return new VNode(undefined, undefined, undefined, String(val));
+  }
   class VNode {
     constructor(
       tag,
@@ -56,6 +58,10 @@
     return v !== undefined && v !== null;
   }
 
+  function isTrue(v) {
+    return v === true;
+  }
+
   function isPrimitive(value) {
     return (
       typeof value === "string" ||
@@ -65,11 +71,26 @@
     );
   }
 
+  function simpleNormalizeChildren(children) {
+    for (let i = 0; i < children.length; i++) {
+      if (Array.isArray(children[i])) {
+        return Array.prototype.concat.apply([], children);
+      }
+    }
+    return children;
+  }
+
+  function normalizeChildren(children) {
+    return isPrimitive(children) ? [createTextVNode(children)] : undefined;
+  }
+
   /*
    * @Descripttion:
    * @version:
    * @Author: windowdotonload
    */
+  const SIMPLE_NORMALIZE = 1;
+  const ALWAYS_NORMALIZE = 2;
   function createElement(
     context,
     tag,
@@ -79,10 +100,14 @@
     alwaysNormalize
   ) {
     if (Array.isArray(data) || isPrimitive(data)) {
+      normalizationType = children;
       children = data;
       data = undefined;
     }
-    return _createElement(context, tag, data, children);
+    if (isTrue(alwaysNormalize)) {
+      normalizationType = ALWAYS_NORMALIZE;
+    }
+    return _createElement(context, tag, data, children, normalizationType);
   }
 
   function _createElement(
@@ -92,6 +117,11 @@
     children,
     normalizationType
   ) {
+    if (normalizationType === ALWAYS_NORMALIZE) {
+      children = normalizeChildren(children);
+    } else if (normalizationType === SIMPLE_NORMALIZE) {
+      children = simpleNormalizeChildren(children);
+    }
     let vnode;
     if (typeof tag === "string") {
       // TODO
@@ -109,7 +139,7 @@
    */
 
   function initRender(vm) {
-    vm.$createElement = (a, b, c, d) => createElement(vm, a, b, c);
+    vm.$createElement = (a, b, c, d) => createElement(vm, a, b, c, d, true);
   }
 
   function renderMixin(Vue) {
@@ -234,8 +264,11 @@
    */
   function createElement$1(tagName, vnode) {
     const elm = document.createElement(tagName);
-
     return elm;
+  }
+
+  function createTextNode(text) {
+    return document.createTextNode(text);
   }
 
   function appendChild(node, child) {
@@ -253,6 +286,7 @@
   var nodeOps = /*#__PURE__*/Object.freeze({
     __proto__: null,
     createElement: createElement$1,
+    createTextNode: createTextNode,
     appendChild: appendChild,
     parentNode: parentNode,
     tagName: tagName
@@ -287,12 +321,16 @@
       index
     ) {
       const tag = vnode.tag;
+      const children = vnode.children;
       if (isDef(tag)) {
         vnode.elm = nodeOps.createElement(tag, vnode);
         console.log("this is createPathcFunction of core/vdom/patch==", vnode);
         createChildren(vnode, children);
         insert(parentElm, vnode.elm);
         return "new Elm";
+      } else {
+        vnode.elm = nodeOps.createTextNode(vnode.text);
+        insert(parentElm, vnode.elm);
       }
     }
 
@@ -305,7 +343,14 @@
     }
 
     function createChildren(vnode, children, insertedVnodeQueue) {
-      if (Array.isArray(children)) ; else if (isPrimitive(vnode.text)) ;
+      if (Array.isArray(children)) {
+        for (let i = 0; i < children.length; ++i) {
+          createElm(
+            children[i],
+            insertedVnodeQueue,
+            vnode.elm);
+        }
+      }
     }
 
     return function patch(oldVnode, vnode, hydrating, removeOnly) {
@@ -382,7 +427,7 @@
       if (template) {
         // TODO
         let render = function (C) {
-          return C("h1", "data");
+          return C("h1", "data for tryVue");
         };
         options.render = render;
       }
