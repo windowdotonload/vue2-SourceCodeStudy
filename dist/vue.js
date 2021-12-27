@@ -36,8 +36,6 @@
    * @version:
    * @Author: windowdotonload
    */
-  const SIMPLE_NORMALIZE = 1;
-  const ALWAYS_NORMALIZE = 2;
   function createElement(
     context,
     tag,
@@ -46,7 +44,7 @@
     normalizationType,
     alwaysNormalize
   ) {
-    return _createElement(context, tag, data, children, normalizationType);
+    return _createElement(context, tag, data, children);
   }
 
   function _createElement(
@@ -56,11 +54,6 @@
     children,
     normalizationType
   ) {
-    if (normalizationType === ALWAYS_NORMALIZE) {
-      children = normalizeChildren(children);
-    } else if (normalizationType === SIMPLE_NORMALIZE) {
-      children = simpleNormalizeChildren(children);
-    }
     let vnode;
     if (typeof tag === "string") {
       // TODO
@@ -78,7 +71,7 @@
    */
 
   function initRender(vm) {
-    vm.$createElement = (a, b, c, d) => createElement(vm, a, b, c, d);
+    vm.$createElement = (a, b, c, d) => createElement(vm, a, b, c);
   }
 
   function renderMixin(Vue) {
@@ -202,11 +195,6 @@
     return vm;
   }
 
-  /*
-   * @Descripttion:
-   * @version:
-   * @Author: windowdotonload
-   */
   // import { warn } from "../util/index";
 
   function Vue(options) {
@@ -288,7 +276,7 @@
       const tag = vnode.tag;
       if (isDef(tag)) {
         vnode.elm = nodeOps.createElement(tag, vnode);
-        console.log("this is createPathcFunction of core/vdom/patch", vnode);
+        console.log("this is createPathcFunction of core/vdom/patch==", vnode);
 
         insert(parentElm, vnode.elm);
         return "new Elm";
@@ -312,8 +300,8 @@
           oldVnode = emptyNodeAt(oldVnode);
         }
         const oldElm = oldVnode.elm;
-        console.log("this is oldElm in patch of core/vom", oldVnode);
-        console.log("this is VNODE in patch of core/vom", vnode);
+        console.log("this is 【oldElm】 in patch of core/vom", oldVnode);
+        console.log("this is 【VNODE】 in patch of core/vom", vnode);
 
         const parentElm = nodeOps.parentNode(oldElm);
         console.log("this is parentElm in patch of core/vom", parentElm);
