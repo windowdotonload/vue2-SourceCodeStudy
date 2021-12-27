@@ -79,7 +79,8 @@
     alwaysNormalize
   ) {
     if (Array.isArray(data) || isPrimitive(data)) {
-      console.log("ok in create-element .js");
+      children = data;
+      data = undefined;
     }
     return _createElement(context, tag, data, children);
   }

@@ -4,7 +4,7 @@
  * @Author: windowdotonload
  */
 
-import { isUndef, isDef } from "../../shared/util";
+import { isUndef, isDef, isPrimitive } from "../../shared/util";
 import VNode from "../vdom/vnode";
 
 export function createPatchFunction(backend) {
@@ -33,7 +33,7 @@ export function createPatchFunction(backend) {
     if (isDef(tag)) {
       vnode.elm = nodeOps.createElement(tag, vnode);
       console.log("this is createPathcFunction of core/vdom/patch==", vnode);
-
+      createChildren(vnode, children);
       insert(parentElm, vnode.elm);
       return "new Elm";
     }
@@ -45,6 +45,12 @@ export function createPatchFunction(backend) {
       } else {
         nodeOps.appendChild(parent, elm);
       }
+    }
+  }
+
+  function createChildren(vnode, children, insertedVnodeQueue) {
+    if (Array.isArray(children)) {
+    } else if (isPrimitive(vnode.text)) {
     }
   }
 
