@@ -1,13 +1,3 @@
-/*
- * @Descripttion:
- * @version:
- * @Author: windowdotonload
- */
-/*
- * @Descripttion:
- * @version:
- * @Author: windowdotonload
- */
 import { initMixin } from "./init";
 import { renderMixin } from "./render";
 // import { stateMixin } from "./state";
