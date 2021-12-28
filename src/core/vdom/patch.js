@@ -33,7 +33,7 @@ export function createPatchFunction(backend) {
     const children = vnode.children;
     if (isDef(tag)) {
       vnode.elm = nodeOps.createElement(tag, vnode);
-      console.log("this is createPathcFunction of core/vdom/patch==", vnode);
+      console.log("this is createPathcFunction of core/vdom/patch", vnode);
       createChildren(vnode, children);
       insert(parentElm, vnode.elm);
       return "new Elm";
