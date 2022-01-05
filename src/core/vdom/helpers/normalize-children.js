@@ -24,6 +24,11 @@ function normalizeArrayChildren(children) {
   for (i = 0; i < children.length; i++) {
     c = children[i];
     if (isUndef(c) || typeof c === "boolean") continue;
-    console.log("ok==========>");
+    if (Array.isArray(c)) {
+      if (c.length > 0) {
+      }
+    } else if (isPrimitive(c)) {
+    } else {
+    }
   }
 }
