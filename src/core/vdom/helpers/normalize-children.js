@@ -33,4 +33,5 @@ function normalizeArrayChildren(children) {
       res.push(c);
     }
   }
+  return res;
 }
