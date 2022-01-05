@@ -90,12 +90,18 @@
 
   function normalizeArrayChildren(children) {
     console.log("this is children in normalizeArrayChildren", children);
+    const res = [];
     let i, c;
     for (i = 0; i < children.length; i++) {
       c = children[i];
       if (isUndef(c) || typeof c === "boolean") continue;
-      console.log("ok==========>");
+      if (Array.isArray(c)) {
+        if (c.length > 0) ;
+      } else if (isPrimitive(c)) ; else {
+        res.push(c);
+      }
     }
+    return res;
   }
 
   /*
@@ -441,7 +447,7 @@
       if (template) {
         // TODO
         let render = function (C) {
-          return C("div", [C("h2", "bcd")]);
+          return C("div", [C("h2", "bcd"), C("h1", "123")]);
         };
         options.render = render;
       }
