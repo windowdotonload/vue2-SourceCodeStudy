@@ -20,6 +20,7 @@ export function normalizeChildren(children) {
 
 function normalizeArrayChildren(children) {
   console.log("this is children in normalizeArrayChildren", children);
+  const res = [];
   let i, c, lastIndex, last;
   for (i = 0; i < children.length; i++) {
     c = children[i];
@@ -29,6 +30,7 @@ function normalizeArrayChildren(children) {
       }
     } else if (isPrimitive(c)) {
     } else {
+      res.push(c);
     }
   }
 }
