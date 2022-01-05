@@ -81,7 +81,21 @@
   }
 
   function normalizeChildren(children) {
-    return isPrimitive(children) ? [createTextVNode(children)] : undefined;
+    return isPrimitive(children)
+      ? [createTextVNode(children)]
+      : Array.isArray(children)
+      ? normalizeArrayChildren(children)
+      : undefined;
+  }
+
+  function normalizeArrayChildren(children) {
+    console.log("this is children in normalizeArrayChildren", children);
+    let i, c;
+    for (i = 0; i < children.length; i++) {
+      c = children[i];
+      if (isUndef(c) || typeof c === "boolean") continue;
+      console.log("ok==========>");
+    }
   }
 
   /*
@@ -324,10 +338,10 @@
       const children = vnode.children;
       if (isDef(tag)) {
         vnode.elm = nodeOps.createElement(tag, vnode);
-        console.log("this is createPathcFunction of core/vdom/patch==", vnode);
+        console.log("this is createPathcFunction of core/vdom/patch", vnode);
         createChildren(vnode, children);
         insert(parentElm, vnode.elm);
-        return "new Elm";
+        return "new Elm in src/core/vdom === patch";
       } else {
         vnode.elm = nodeOps.createTextNode(vnode.text);
         insert(parentElm, vnode.elm);
@@ -427,7 +441,7 @@
       if (template) {
         // TODO
         let render = function (C) {
-          return C("h1", "data for tryVue");
+          return C("div", [C("h2", "bcd")]);
         };
         options.render = render;
       }

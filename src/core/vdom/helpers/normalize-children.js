@@ -1,5 +1,5 @@
 import VNode, { createTextVNode } from "../vnode";
-import { isPrimitive } from "../../../shared/util";
+import { isPrimitive, isUndef } from "../../../shared/util";
 
 export function simpleNormalizeChildren(children) {
   for (let i = 0; i < children.length; i++) {
@@ -11,5 +11,19 @@ export function simpleNormalizeChildren(children) {
 }
 
 export function normalizeChildren(children) {
-  return isPrimitive(children) ? [createTextVNode(children)] : undefined;
+  return isPrimitive(children)
+    ? [createTextVNode(children)]
+    : Array.isArray(children)
+    ? normalizeArrayChildren(children)
+    : undefined;
+}
+
+function normalizeArrayChildren(children) {
+  console.log("this is children in normalizeArrayChildren", children);
+  let i, c, lastIndex, last;
+  for (i = 0; i < children.length; i++) {
+    c = children[i];
+    if (isUndef(c) || typeof c === "boolean") continue;
+    console.log("ok==========>");
+  }
 }
