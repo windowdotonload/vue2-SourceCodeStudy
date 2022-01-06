@@ -1,6 +1,6 @@
 import { no, identity } from "../shared/util";
 
 export default {
-  isReservedAttr: no,
+  isReservedTag: no,
   parsePlatformTagName: identity,
 };

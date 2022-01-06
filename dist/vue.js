@@ -33,22 +33,11 @@
     }
   }
 
-  /*
-   * @Descripttion:
-   * @version:
-   * @Author: windowdotonload
-   */
-  /*
-   * @Descripttion:
-   * @version:
-   * @Author: windowdotonload
-   */
-  /*
-   * @Descripttion:
-   * @version:
-   * @Author: windowdotonload
-   */
   function noop(a, b, c) {}
+
+  const no = (a, b, c) => false;
+
+  const identity = (_) => _;
 
   function isUndef(v) {
     return v === undefined || v === null;
@@ -70,6 +59,13 @@
       typeof value === "boolean"
     );
   }
+
+  var config = {
+    isReservedTag: no,
+    parsePlatformTagName: identity,
+  };
+
+  function resolveAsset(options, type, id, warnMissing) {}
 
   function simpleNormalizeChildren(children) {
     for (let i = 0; i < children.length; i++) {
@@ -144,8 +140,23 @@
     }
     let vnode;
     if (typeof tag === "string") {
+      let Ctor;
       // 判断是否为保留标签
-      {
+      if (config.isReservedTag(tag)) {
+        vnode = new VNode(
+          config.parsePlatformTagName(tag),
+          data,
+          children,
+          undefined,
+          undefined,
+          context
+        );
+      } else if (
+        !data &&
+        isDef((Ctor = resolveAsset(context.$options)))
+      ) {
+        vnode = createComponent(Ctor, data, context, children, tag);
+      } else {
         vnode = new VNode(tag, data, children, undefined, undefined, context);
       }
     }
