@@ -1,19 +1,8 @@
-/*
- * @Descripttion:
- * @version:
- * @Author: windowdotonload
- */
-/*
- * @Descripttion:
- * @version:
- * @Author: windowdotonload
- */
-/*
- * @Descripttion:
- * @version:
- * @Author: windowdotonload
- */
 export function noop(a, b, c) {}
+
+export const no = (a, b, c) => false;
+
+export const identity = (_) => _;
 
 export function isUndef(v) {
   return v === undefined || v === null;
