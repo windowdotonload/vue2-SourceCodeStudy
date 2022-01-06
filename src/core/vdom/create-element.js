@@ -7,6 +7,8 @@ import VNode from "./vnode";
 import config from "../config";
 import { isPrimitive, isTrue, isDef, resolveAsset } from "../utils/index";
 import { normalizeChildren, simpleNormalizeChildren } from "./helpers/index";
+import { createComponent } from "./create-component";
+
 const SIMPLE_NORMALIZE = 1;
 const ALWAYS_NORMALIZE = 2;
 export function createElement(
@@ -45,6 +47,7 @@ export function _createElement(
     let Ctor;
     // 判断是否为保留标签
     if (config.isReservedTag(tag)) {
+      console.log("1");
       vnode = new VNode(
         config.parsePlatformTagName(tag),
         data,
@@ -57,8 +60,10 @@ export function _createElement(
       !data &&
       isDef((Ctor = resolveAsset(context.$options, "components", tag)))
     ) {
+      console.log("2");
       vnode = createComponent(Ctor, data, context, children, tag);
     } else {
+      console.log("3");
       vnode = new VNode(tag, data, children, undefined, undefined, context);
     }
   }

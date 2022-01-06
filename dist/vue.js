@@ -65,7 +65,9 @@
     parsePlatformTagName: identity,
   };
 
-  function resolveAsset(options, type, id, warnMissing) {}
+  function resolveAsset(options, type, id, warnMissing) {
+    return "resolveAssets";
+  }
 
   function simpleNormalizeChildren(children) {
     for (let i = 0; i < children.length; i++) {
@@ -100,11 +102,16 @@
     return res;
   }
 
+  function createComponent(Ctor, data, context, children, tag) {
+    console.log("createComponent");
+  }
+
   /*
    * @Descripttion:
    * @version:
    * @Author: windowdotonload
    */
+
   const SIMPLE_NORMALIZE = 1;
   const ALWAYS_NORMALIZE = 2;
   function createElement(
@@ -143,6 +150,7 @@
       let Ctor;
       // 判断是否为保留标签
       if (config.isReservedTag(tag)) {
+        console.log("1");
         vnode = new VNode(
           config.parsePlatformTagName(tag),
           data,
@@ -155,8 +163,10 @@
         !data &&
         isDef((Ctor = resolveAsset(context.$options)))
       ) {
-        vnode = createComponent(Ctor, data, context, children, tag);
+        console.log("2");
+        vnode = createComponent();
       } else {
+        console.log("3");
         vnode = new VNode(tag, data, children, undefined, undefined, context);
       }
     }
