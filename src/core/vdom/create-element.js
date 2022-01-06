@@ -4,7 +4,8 @@
  * @Author: windowdotonload
  */
 import VNode from "./vnode";
-import { isPrimitive, isTrue } from "../utils/index";
+import config from "../config";
+import { isPrimitive, isTrue, isDef } from "../utils/index";
 import { normalizeChildren, simpleNormalizeChildren } from "./helpers/index";
 const SIMPLE_NORMALIZE = 1;
 const ALWAYS_NORMALIZE = 2;
@@ -41,8 +42,17 @@ export function _createElement(
   }
   let vnode, ns;
   if (typeof tag === "string") {
+    let Ctor;
     // 判断是否为保留标签
-    if (false) {
+    if (config.isReservedTag(tag)) {
+      console.warn(
+        `The .native modifier for v-on is only valid on components but it was used .`
+      );
+    } else if (
+      !data &&
+      isDef((Ctor = resolveAsset(context.$options, "components", tag)))
+    ) {
+      vnode = createComponent(Ctor, data, context, children, tag);
     } else {
       vnode = new VNode(tag, data, children, undefined, undefined, context);
     }

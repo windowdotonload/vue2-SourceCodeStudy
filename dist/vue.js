@@ -144,9 +144,10 @@
     }
     let vnode;
     if (typeof tag === "string") {
-      // TODO
-
-      vnode = new VNode(tag, data, children, undefined, undefined, context);
+      // 判断是否为保留标签
+      {
+        vnode = new VNode(tag, data, children, undefined, undefined, context);
+      }
     }
 
     return vnode;
