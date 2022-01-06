@@ -41,9 +41,11 @@ export function _createElement(
   }
   let vnode, ns;
   if (typeof tag === "string") {
-    // TODO
-
-    vnode = new VNode(tag, data, children, undefined, undefined, context);
+    // 判断是否为保留标签
+    if (false) {
+    } else {
+      vnode = new VNode(tag, data, children, undefined, undefined, context);
+    }
   }
 
   return vnode;
