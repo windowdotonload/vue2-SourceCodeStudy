@@ -5,7 +5,7 @@
  */
 import VNode from "./vnode";
 import config from "../config";
-import { isPrimitive, isTrue, isDef } from "../utils/index";
+import { isPrimitive, isTrue, isDef, resolveAsset } from "../utils/index";
 import { normalizeChildren, simpleNormalizeChildren } from "./helpers/index";
 const SIMPLE_NORMALIZE = 1;
 const ALWAYS_NORMALIZE = 2;
