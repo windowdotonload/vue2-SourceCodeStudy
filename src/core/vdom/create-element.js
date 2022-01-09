@@ -60,10 +60,8 @@ export function _createElement(
       !data &&
       isDef((Ctor = resolveAsset(context.$options, "components", tag)))
     ) {
-      console.log("2");
       vnode = createComponent(Ctor, data, context, children, tag);
     } else {
-      console.log("3");
       vnode = new VNode(tag, data, children, undefined, undefined, context);
     }
   }
