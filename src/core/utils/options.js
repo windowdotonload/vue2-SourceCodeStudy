@@ -1,5 +1,9 @@
-export function resolveAsset(options, type, id, warnMissing) {
-  const assets = options[type];
+import { hasOwn } from "../../shared/util";
 
-  console.log("this is assets", assets, id);
+export function resolveAsset(options, type, id, warnMissing) {
+  if (typeof id !== "string") {
+    return;
+  }
+  const assets = options[type];
+  if (hasOwn(assets, id)) return assets[id];
 }
