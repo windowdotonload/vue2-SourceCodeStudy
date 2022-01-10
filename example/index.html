@@ -12,7 +12,11 @@
     <script>
       const vm = new Vue({
         el: "#app",
-        template: "#123",
+        components: {
+          aaa: {
+            template: "    <h1>this is component</h1>",
+          },
+        },
       });
       console.log(vm);
     </script>

@@ -1,4 +1,4 @@
 export function resolveAsset(options, type, id, warnMissing) {
-  return "resolveAssets";
+  const assets = options[type];
+  console.log("this is assets", assets);
 }
-``;

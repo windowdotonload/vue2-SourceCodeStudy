@@ -66,7 +66,8 @@
   };
 
   function resolveAsset(options, type, id, warnMissing) {
-    return "resolveAssets";
+    const assets = options[type];
+    console.log("this is assets", assets);
   }
 
   function simpleNormalizeChildren(children) {
@@ -161,12 +162,10 @@
         );
       } else if (
         !data &&
-        isDef((Ctor = resolveAsset(context.$options)))
+        isDef((Ctor = resolveAsset(context.$options, "components")))
       ) {
-        console.log("2");
         vnode = createComponent();
       } else {
-        console.log("3");
         vnode = new VNode(tag, data, children, undefined, undefined, context);
       }
     }
