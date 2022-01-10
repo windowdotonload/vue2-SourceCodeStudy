@@ -60,15 +60,22 @@
     );
   }
 
+  const hasOwnProperty = Object.prototype.hasOwnProperty;
+  function hasOwn(obj, key) {
+    return hasOwnProperty.call(obj, key);
+  }
+
   var config = {
     isReservedTag: no,
     parsePlatformTagName: identity,
   };
 
   function resolveAsset(options, type, id, warnMissing) {
+    if (typeof id !== "string") {
+      return;
+    }
     const assets = options[type];
-
-    console.log("this is assets", assets, id);
+    if (hasOwn(assets, id)) return assets[id];
   }
 
   function simpleNormalizeChildren(children) {
@@ -165,6 +172,7 @@
         !data &&
         isDef((Ctor = resolveAsset(context.$options, "components", tag)))
       ) {
+        console.log("this is Ctor", Ctor);
         vnode = createComponent();
       } else {
         vnode = new VNode(tag, data, children, undefined, undefined, context);
