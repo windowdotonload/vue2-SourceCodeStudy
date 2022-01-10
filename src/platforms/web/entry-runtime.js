@@ -3,4 +3,4 @@
  * @version:
  * @Author: windowdotonload
  */
-console.log("thisi s entryruntime");
+console.log("this is entryruntime");

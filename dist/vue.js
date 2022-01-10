@@ -67,7 +67,8 @@
 
   function resolveAsset(options, type, id, warnMissing) {
     const assets = options[type];
-    console.log("this is assets", assets);
+
+    console.log("this is assets", assets, id);
   }
 
   function simpleNormalizeChildren(children) {
@@ -162,7 +163,7 @@
         );
       } else if (
         !data &&
-        isDef((Ctor = resolveAsset(context.$options, "components")))
+        isDef((Ctor = resolveAsset(context.$options, "components", tag)))
       ) {
         vnode = createComponent();
       } else {
@@ -445,11 +446,6 @@
     }
   }
 
-  /*
-   * @Descripttion:
-   * @version:
-   * @Author: windowdotonload
-   */
   const mount = Vue.prototype.$mount;
   Vue.prototype.$mount = function (el, hydrating) {
     el = query(el);
