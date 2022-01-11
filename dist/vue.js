@@ -68,7 +68,33 @@
   var config = {
     isReservedTag: no,
     parsePlatformTagName: identity,
+    optionMergeStrategies: Object.create(null),
   };
+
+  const strats = config.optionMergeStrategies;
+
+  const defaultStrat = function (parentVal, childVal) {
+    return childVal === undefined ? parentVal : childVal;
+  };
+
+  function mergeOptions(parent, child, vm) {
+    const options = {};
+    let key;
+    for (key in parent) {
+      mergeField(key);
+    }
+    for (key in child) {
+      if (!hasOwn(parent, key)) {
+        mergeField(key);
+      }
+    }
+    function mergeField(key) {
+      const strat = strats[key] || defaultStrat;
+      console.log("this is start =======>", strat);
+      options[key] = strat(parent[key], child[key], vm, key);
+    }
+    return options;
+  }
 
   function resolveAsset(options, type, id, warnMissing) {
     if (typeof id !== "string") {
@@ -213,17 +239,15 @@
     vm._renderProxy = vm;
   };
 
-  /*
-   * @Descripttion:
-   * @version:
-   * @Author: windowdotonload
-   */
-
   function initMixin(Vue) {
     Vue.prototype._init = function (options) {
       const vm = this;
       if (options && options._isComponent) ; else {
-        this.$options = options;
+        vm.$options = mergeOptions(
+          options || {},
+          resolveConstructorOptions(vm.constructor),
+          vm
+        );
       }
       initProxy(vm);
       initRender(vm);
@@ -231,6 +255,14 @@
         vm.$mount(this.$options.el);
       }
     };
+  }
+
+  function resolveConstructorOptions(Ctor) {
+    Ctor.otherName = "otherName";
+    let options = Ctor.options;
+    console.dir(Ctor);
+    console.log("this is ctor in options", options);
+    return options;
   }
 
   /*
@@ -301,11 +333,18 @@
   lifecycleMixin(Vue);
   renderMixin(Vue);
 
+  function initGlobalAPI(Vue) {
+    Vue.options = Object.create(null);
+    Vue.options._base = Vue;
+  }
+
   /*
    * @Descripttion:
    * @version:
    * @Author: windowdotonload
    */
+
+  initGlobalAPI(Vue);
 
   /*
    * @Descripttion:
