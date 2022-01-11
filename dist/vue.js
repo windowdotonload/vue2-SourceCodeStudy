@@ -112,7 +112,7 @@
   }
 
   function createComponent(Ctor, data, context, children, tag) {
-    console.log("createComponent");
+    console.log("createComponent", Ctor, data, context, children, tag);
   }
 
   /*
@@ -173,7 +173,7 @@
         isDef((Ctor = resolveAsset(context.$options, "components", tag)))
       ) {
         console.log("this is Ctor", Ctor);
-        vnode = createComponent();
+        vnode = createComponent(Ctor, data, context, children, tag);
       } else {
         vnode = new VNode(tag, data, children, undefined, undefined, context);
       }
