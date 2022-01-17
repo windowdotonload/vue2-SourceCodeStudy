@@ -23,7 +23,7 @@ export function initMixin(Vue) {
 
 export function resolveConstructorOptions(Ctor) {
   let options = Ctor.options;
-  console.log("this is ctor in options in resolveConstructorOptions", options);
+  console.log("this is ctor in resolveConstructorOptions", options);
   console.dir(Ctor);
   return options;
 }
