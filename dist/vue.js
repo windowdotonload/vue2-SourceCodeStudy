@@ -238,6 +238,7 @@
   };
 
   function initMixin(Vue) {
+    console.log("this is Vue before mergeoptions", Vue.options);
     Vue.prototype._init = function (options) {
       const vm = this;
       if (options && options._isComponent) ; else {
@@ -247,7 +248,8 @@
           vm
         );
       }
-      console.log("this is vm after merge options ======================>", vm);
+
+      console.log("this is vm after merge options ====>", vm);
       initProxy(vm);
       initRender(vm);
       if (vm.$options.el) {
@@ -326,6 +328,7 @@
   }
 
   initMixin(Vue);
+
   // stateMixin(Vue);
   // eventsMixin(Vue);
   lifecycleMixin(Vue);
