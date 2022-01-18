@@ -90,7 +90,6 @@
     }
     function mergeField(key) {
       const strat = strats[key] || defaultStrat;
-      console.log("this is start =======>", strat);
       options[key] = strat(parent[key], child[key], vm, key);
     }
     return options;
@@ -185,7 +184,6 @@
       let Ctor;
       // 判断是否为保留标签
       if (config.isReservedTag(tag)) {
-        console.log("1");
         vnode = new VNode(
           config.parsePlatformTagName(tag),
           data,
@@ -249,6 +247,7 @@
           vm
         );
       }
+      console.log("this is vm after merge options ======================>", vm);
       initProxy(vm);
       initRender(vm);
       if (vm.$options.el) {
@@ -258,10 +257,9 @@
   }
 
   function resolveConstructorOptions(Ctor) {
-    Ctor.otherName = "otherName";
     let options = Ctor.options;
+    console.log("this is ctor in resolveConstructorOptions", options);
     console.dir(Ctor);
-    console.log("this is ctor in options", options);
     return options;
   }
 
@@ -334,6 +332,7 @@
   renderMixin(Vue);
 
   function initGlobalAPI(Vue) {
+    console.log(" this is in initGlobalApi ");
     Vue.options = Object.create(null);
     Vue.options._base = Vue;
   }

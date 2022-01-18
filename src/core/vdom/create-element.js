@@ -47,7 +47,6 @@ export function _createElement(
     let Ctor;
     // 判断是否为保留标签
     if (config.isReservedTag(tag)) {
-      console.log("1");
       vnode = new VNode(
         config.parsePlatformTagName(tag),
         data,

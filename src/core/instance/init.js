@@ -13,6 +13,7 @@ export function initMixin(Vue) {
         vm
       );
     }
+    console.log("this is vm after merge options ====>", vm);
     initProxy(vm);
     initRender(vm);
     if (vm.$options.el) {
