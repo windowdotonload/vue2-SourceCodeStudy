@@ -9,6 +9,8 @@ export function initExtend(Vue) {
     //   return cachedCtors[SuperId];
     // }
     const Sub = function VueComponent(options) {
+      // 这里可以_init是因为Sub.prototype = Object.create(Super.prototype);
+      // _init挂在在Vue.prototype上
       this._init(options);
     };
     Sub.prototype = Object.create(Super.prototype);
