@@ -16,6 +16,10 @@ export function isTrue(v) {
   return v === true;
 }
 
+export function isObject(obj) {
+  return obj !== null && typeof obj === "object";
+}
+
 export function isPrimitive(value) {
   return (
     typeof value === "string" ||
