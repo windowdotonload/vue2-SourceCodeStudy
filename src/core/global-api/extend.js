@@ -1,7 +1,7 @@
-import { mergeOptions } from "../util/index";
+import { mergeOptions } from "../utils/index";
 export function initExtend(Vue) {
-  extendOptions = extendOptions || {};
   Vue.extend = function (extendOptions) {
+    extendOptions = extendOptions || {};
     const Super = this;
     // const SuperId = Super.cid;
     // const cachedCtors = extendOptions._Ctor || (extendOptions._Ctor = {});

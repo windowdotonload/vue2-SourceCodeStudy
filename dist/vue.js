@@ -145,8 +145,10 @@
       return;
     }
 
+    const baseCtor = context.$options._base;
+
     if (isObject(Ctor)) {
-      console.log("this is Ctor===>", Ctor);
+      Ctor = baseCtor.extend(Ctor);
     }
     console.log("createComponent", Ctor, data, context, children, tag);
   }
@@ -207,8 +209,8 @@
         !data &&
         isDef((Ctor = resolveAsset(context.$options, "components", tag)))
       ) {
-        console.log("this is Ctor", Ctor);
         vnode = createComponent(Ctor, data, context, children, tag);
+        console.log("this is Ctor after createcomponent", Ctor);
       } else {
         vnode = new VNode(tag, data, children, undefined, undefined, context);
       }
@@ -348,10 +350,34 @@
   lifecycleMixin(Vue);
   renderMixin(Vue);
 
+  function initExtend(Vue) {
+    Vue.extend = function (extendOptions) {
+      extendOptions = extendOptions || {};
+      const Super = this;
+      // const SuperId = Super.cid;
+      // const cachedCtors = extendOptions._Ctor || (extendOptions._Ctor = {});
+      // if (cachedCtors[SuperId]) {
+      //   return cachedCtors[SuperId];
+      // }
+      const Sub = function VueComponent(options) {
+        // 这里可以_init是因为Sub.prototype = Object.create(Super.prototype);
+        // _init挂在在Vue.prototype上
+        this._init(options);
+      };
+      Sub.prototype = Object.create(Super.prototype);
+      Sub.prototype.constructor = Sub;
+
+      Sub.options = mergeOptions(Super.options, extendOptions);
+      return Sub;
+    };
+  }
+
   function initGlobalAPI(Vue) {
     console.log(" this is in initGlobalApi ");
     Vue.options = Object.create(null);
     Vue.options._base = Vue;
+
+    initExtend(Vue);
   }
 
   /*
