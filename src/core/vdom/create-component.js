@@ -9,5 +9,6 @@ export function createComponent(Ctor, data, context, children, tag) {
   if (isObject(Ctor)) {
     Ctor = baseCtor.extend(Ctor);
   }
+  console.dir(Ctor);
   console.log("createComponent", Ctor, data, context, children, tag);
 }
