@@ -51,6 +51,10 @@
     return v === true;
   }
 
+  function isObject(obj) {
+    return obj !== null && typeof obj === "object";
+  }
+
   function isPrimitive(value) {
     return (
       typeof value === "string" ||

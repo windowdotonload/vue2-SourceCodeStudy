@@ -1,11 +1,13 @@
-import { isUndef } from "../utils/index";
+import { isUndef, isObject } from "../utils/index";
 export function createComponent(Ctor, data, context, children, tag) {
   if (isUndef(Ctor)) {
     return;
   }
 
+  const baseCtor = context.$options._base;
+
   if (isObject(Ctor)) {
-    console.log("this is Ctor===>", Ctor);
+    Ctor = baseCtor.extend(Ctor);
   }
   console.log("createComponent", Ctor, data, context, children, tag);
 }
