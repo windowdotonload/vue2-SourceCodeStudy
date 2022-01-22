@@ -140,6 +140,8 @@
     return res;
   }
 
+  // import { resolveConstructorOptions } from "../instance/init";
+
   function createComponent(Ctor, data, context, children, tag) {
     if (isUndef(Ctor)) {
       return;
@@ -154,10 +156,17 @@
       return;
     }
     data = data || {};
-    const cotr = resolveConstructorOptions(Ctor);
-    console.log("this is cort in createcomponent ***", cotr);
+    // resolveConstructorOptions(Ctor);
+    installComponentHooks(data);
+    const name = Ctor.options.name || tag;
+    const vnode = new VNode(undefined, undefined, undefined, "createComponent");
     console.dir(Ctor);
     console.log("createComponent", Ctor, data, context, children, tag);
+    return vnode;
+  }
+
+  function installComponentHooks(data) {
+    console.log("this is hoooooook", data);
   }
 
   /*
