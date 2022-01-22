@@ -1,9 +1,3 @@
-/*
- * @Descripttion:
- * @version:
- * @Author: windowdotonload
- */
-
 import { isUndef, isDef, isPrimitive } from "../../shared/util";
 import VNode from "../vdom/vnode";
 
@@ -69,8 +63,6 @@ export function createPatchFunction(backend) {
   }
 
   return function patch(oldVnode, vnode, hydrating, removeOnly) {
-    // TODO
-
     if (isUndef(oldVnode)) {
     } else {
       const isRealElement = isDef(oldVnode.nodeType);
