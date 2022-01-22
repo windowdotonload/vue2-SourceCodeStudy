@@ -1,8 +1,3 @@
-/*
- * @Descripttion:
- * @version:
- * @Author: windowdotonload
- */
 import { createElement } from "../vdom/create-element";
 
 export function initRender(vm) {

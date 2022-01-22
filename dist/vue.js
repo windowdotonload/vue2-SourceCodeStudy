@@ -150,6 +150,12 @@
     if (isObject(Ctor)) {
       Ctor = baseCtor.extend(Ctor);
     }
+    if (typeof Ctor !== "function") {
+      return;
+    }
+    data = data || {};
+    const cotr = resolveConstructorOptions(Ctor);
+    console.log("this is cort in createcomponent ***", cotr);
     console.dir(Ctor);
     console.log("createComponent", Ctor, data, context, children, tag);
   }
@@ -219,12 +225,6 @@
 
     return vnode;
   }
-
-  /*
-   * @Descripttion:
-   * @version:
-   * @Author: windowdotonload
-   */
 
   function initRender(vm) {
     vm.$createElement = (a, b, c, d) => createElement(vm, a, b, c, d, true);
@@ -362,7 +362,7 @@
       // }
       const Sub = function VueComponent(options) {
         // 这里可以_init是因为Sub.prototype = Object.create(Super.prototype);
-        // _init挂在在Vue.prototype上
+        // _init挂在在Vue.prototype上 Vue.extend本质上就是继承
         this._init(options);
       };
       Sub.prototype = Object.create(Super.prototype);
