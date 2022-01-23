@@ -361,10 +361,11 @@
   renderMixin(Vue);
 
   function initExtend(Vue) {
+    Vue.cid = 0;
     Vue.extend = function (extendOptions) {
       extendOptions = extendOptions || {};
       const Super = this;
-      // const SuperId = Super.cid;
+      const SuperId = Super.cid;
       // const cachedCtors = extendOptions._Ctor || (extendOptions._Ctor = {});
       // if (cachedCtors[SuperId]) {
       //   return cachedCtors[SuperId];
@@ -433,12 +434,6 @@
     tagName: tagName
   });
 
-  /*
-   * @Descripttion:
-   * @version:
-   * @Author: windowdotonload
-   */
-
   function createPatchFunction(backend) {
     const { modules, nodeOps } = backend;
 
@@ -495,8 +490,6 @@
     }
 
     return function patch(oldVnode, vnode, hydrating, removeOnly) {
-      // TODO
-
       if (isUndef(oldVnode)) ; else {
         const isRealElement = isDef(oldVnode.nodeType);
         if (isRealElement) {
