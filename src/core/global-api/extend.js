@@ -15,9 +15,10 @@ export function initExtend(Vue) {
       // _init挂在在Vue.prototype上 Vue.extend本质上就是继承
       this._init(options);
     };
+
     Sub.prototype = Object.create(Super.prototype);
     Sub.prototype.constructor = Sub;
-
+    Sub.cid = cid++;
     Sub.options = mergeOptions(Super.options, extendOptions);
     return Sub;
   };

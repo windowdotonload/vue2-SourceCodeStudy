@@ -20,8 +20,6 @@ export function createComponent(Ctor, data, context, children, tag) {
   installComponentHooks(data);
   const name = Ctor.options.name || tag;
   const vnode = new VNode(undefined, undefined, undefined, "createComponent");
-  console.dir(Ctor);
-  console.log("createComponent", Ctor, data, context, children, tag);
   return vnode;
 }
 

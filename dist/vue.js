@@ -160,8 +160,6 @@
     installComponentHooks(data);
     const name = Ctor.options.name || tag;
     const vnode = new VNode(undefined, undefined, undefined, "createComponent");
-    console.dir(Ctor);
-    console.log("createComponent", Ctor, data, context, children, tag);
     return vnode;
   }
 
@@ -362,6 +360,7 @@
 
   function initExtend(Vue) {
     Vue.cid = 0;
+    let cid = 1;
     Vue.extend = function (extendOptions) {
       extendOptions = extendOptions || {};
       const Super = this;
@@ -375,9 +374,10 @@
         // _init挂在在Vue.prototype上 Vue.extend本质上就是继承
         this._init(options);
       };
+
       Sub.prototype = Object.create(Super.prototype);
       Sub.prototype.constructor = Sub;
-
+      Sub.cid = cid++;
       Sub.options = mergeOptions(Super.options, extendOptions);
       return Sub;
     };
@@ -556,7 +556,7 @@
       if (template) {
         // TODO
         let render = function (C) {
-          return C("div", [C("h2", "bcd"), C("aaa", "123")]);
+          return C("div", [C("h2", "bcd"), C("aaa", "123"), C("bbb", "123")]);
         };
         options.render = render;
       }
