@@ -35,9 +35,11 @@ export function createComponent(Ctor, data, context, children, tag) {
     undefined,
     undefined,
     undefined,
+    undefined,
     { Ctor, propsData, listeners, tag, children },
     asyncFactory
   );
+  console.log("this is vnode in create-component", vnode);
   return vnode;
 }
 
