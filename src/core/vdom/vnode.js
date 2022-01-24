@@ -24,5 +24,7 @@ export default class VNode {
     this.elm = elm;
     this.ns = undefined;
     this.context = context;
+    this.componentOptions = componentOptions;
+    this.asyncFactory = asyncFactory;
   }
 }

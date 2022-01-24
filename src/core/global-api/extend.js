@@ -19,6 +19,7 @@ export function initExtend(Vue) {
     Sub.prototype = Object.create(Super.prototype);
     Sub.prototype.constructor = Sub;
     Sub.cid = cid++;
+    console.log("this is Sub cid", Sub.cid);
     Sub.options = mergeOptions(Super.options, extendOptions);
     return Sub;
   };

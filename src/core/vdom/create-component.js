@@ -12,14 +12,32 @@ export function createComponent(Ctor, data, context, children, tag) {
   if (isObject(Ctor)) {
     Ctor = baseCtor.extend(Ctor);
   }
+
   if (typeof Ctor !== "function") {
     return;
   }
+  let asyncFactory;
+  if (isUndef(Ctor.cid)) {
+    asyncFactory = Ctor;
+  }
   data = data || {};
+
   // resolveConstructorOptions(Ctor);
+
+  // TODO
+  const propsData = "";
+  const listeners = data.on;
   installComponentHooks(data);
   const name = Ctor.options.name || tag;
-  const vnode = new VNode(undefined, undefined, undefined, "createComponent");
+  const vnode = new VNode(
+    `vue-component-${Ctor.cid}${name ? `-${name}` : ""}`,
+    data,
+    undefined,
+    undefined,
+    undefined,
+    { Ctor, propsData, listeners, tag, children },
+    asyncFactory
+  );
   return vnode;
 }
 
