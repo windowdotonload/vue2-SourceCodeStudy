@@ -24,7 +24,6 @@ export function createComponent(Ctor, data, context, children, tag) {
 
   // resolveConstructorOptions(Ctor);
 
-  // TODO
   const propsData = "";
   const listeners = data.on;
   installComponentHooks(data);
