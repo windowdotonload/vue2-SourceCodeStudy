@@ -50,6 +50,22 @@ export function createComponent(Ctor, data, context, children, tag) {
 
 function installComponentHooks(data) {
   const hooks = data.hook || (data.hook = {});
-  for (let i = 0; i < hooksToMerge.length; i++) {}
-  console.log("this is hoooooook", data);
+  for (let i = 0; i < hooksToMerge.length; i++) {
+    const key = hooksToMerge[i];
+    const existing = hooks[key];
+    const toMerge = componentVNodeHooks[key];
+    if (existing !== toMerge && !(existing && existing._merged)) {
+      hooks[key] = existing ? mergeHook(toMerge, existing) : toMerge;
+    }
+  }
+}
+
+function mergeHook(f1, f2) {
+  console.log("this is in mergehooook");
+  const merged = (a, b) => {
+    f1(a, b);
+    f2(a, b);
+  };
+  merged._merged = true;
+  return merged;
 }
