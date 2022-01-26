@@ -1,7 +1,8 @@
 import { isUndef, isObject } from "../utils/index";
 import VNode from "./vnode";
 // import { resolveConstructorOptions } from "../instance/init";
-
+const componentVNodeHooks = {};
+const hooksToMerge = Object.keys(componentVNodeHooks);
 export function createComponent(Ctor, data, context, children, tag) {
   if (isUndef(Ctor)) {
     return;
@@ -43,5 +44,7 @@ export function createComponent(Ctor, data, context, children, tag) {
 }
 
 function installComponentHooks(data) {
+  const hooks = data.hook || (data.hook = {});
+  for (let i = 0; i < hooksToMerge.length; i++) {}
   console.log("this is hoooooook", data);
 }
