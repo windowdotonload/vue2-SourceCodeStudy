@@ -1,8 +1,3 @@
-/*
- * @Descripttion:
- * @version:
- * @Author: windowdotonload
- */
 import VNode from "./vnode";
 import config from "../config";
 import { isPrimitive, isTrue, isDef, resolveAsset } from "../utils/index";
