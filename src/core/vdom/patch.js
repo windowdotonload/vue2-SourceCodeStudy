@@ -41,6 +41,16 @@ export function createPatchFunction(backend) {
     }
   }
 
+  function createComponent(vnode, insertedVnodeQueue, parentElm, refElm) {
+    console.log(
+      "this is createComponent =======>",
+      vnode,
+      insertedVnodeQueue,
+      parentElm,
+      refElm
+    );
+  }
+
   function insert(parent, elm, ref) {
     if (isDef(parent)) {
       if (isDef(ref)) {
