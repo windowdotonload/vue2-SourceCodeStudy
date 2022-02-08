@@ -23,6 +23,10 @@ export function createPatchFunction(backend) {
     ownerArray,
     index
   ) {
+    if (createComponent(vnode, insertedVnodeQueue, parentElm, refElm)) {
+      return;
+    }
+
     const tag = vnode.tag;
     const children = vnode.children;
     if (isDef(tag)) {
@@ -63,6 +67,7 @@ export function createPatchFunction(backend) {
   }
 
   return function patch(oldVnode, vnode, hydrating, removeOnly) {
+    const insertedVnodeQueue = [];
     if (isUndef(oldVnode)) {
     } else {
       const isRealElement = isDef(oldVnode.nodeType);
@@ -75,7 +80,7 @@ export function createPatchFunction(backend) {
 
       const parentElm = nodeOps.parentNode(oldElm);
       console.log("this is parentElm in patch of core/vom", parentElm);
-      createElm(vnode, null, parentElm);
+      createElm(vnode, insertedVnodeQueue, parentElm);
     }
   };
 }
