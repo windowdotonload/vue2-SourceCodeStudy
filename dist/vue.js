@@ -212,12 +212,6 @@
     return merged;
   }
 
-  /*
-   * @Descripttion:
-   * @version:
-   * @Author: windowdotonload
-   */
-
   const SIMPLE_NORMALIZE = 1;
   const ALWAYS_NORMALIZE = 2;
   function createElement(
@@ -502,6 +496,10 @@
       ownerArray,
       index
     ) {
+      if (createComponent(vnode)) {
+        return;
+      }
+
       const tag = vnode.tag;
       const children = vnode.children;
       if (isDef(tag)) {
@@ -514,6 +512,11 @@
         vnode.elm = nodeOps.createTextNode(vnode.text);
         insert(parentElm, vnode.elm);
       }
+    }
+
+    function createComponent(vnode, insertedVnodeQueue, parentElm, refElm) {
+      let i = vnode.data;
+      console.log("this is vnode in createComponent*****", vnode);
     }
 
     function insert(parent, elm, ref) {
@@ -536,6 +539,7 @@
     }
 
     return function patch(oldVnode, vnode, hydrating, removeOnly) {
+      const insertedVnodeQueue = [];
       if (isUndef(oldVnode)) ; else {
         const isRealElement = isDef(oldVnode.nodeType);
         if (isRealElement) {
@@ -547,7 +551,7 @@
 
         const parentElm = nodeOps.parentNode(oldElm);
         console.log("this is parentElm in patch of core/vom", parentElm);
-        createElm(vnode, null, parentElm);
+        createElm(vnode, insertedVnodeQueue, parentElm);
       }
     };
   }

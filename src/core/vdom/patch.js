@@ -42,13 +42,10 @@ export function createPatchFunction(backend) {
   }
 
   function createComponent(vnode, insertedVnodeQueue, parentElm, refElm) {
-    console.log(
-      "this is createComponent =======>",
-      vnode,
-      insertedVnodeQueue,
-      parentElm,
-      refElm
-    );
+    let i = vnode.data;
+    console.log("this is vnode in createComponent*****", vnode);
+    if (isDef(i)) {
+    }
   }
 
   function insert(parent, elm, ref) {
