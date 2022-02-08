@@ -51,7 +51,7 @@ export function createPatchFunction(backend) {
         i(vnode, false);
       }
       if (isDef(vnode.componentInstance)) {
-        console.log("this is in patch ----- createComponent");
+        console.log("this is in patch -- createComponent");
       }
     }
   }
