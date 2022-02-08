@@ -144,10 +144,18 @@
 
   // import { resolveConstructorOptions } from "../instance/init";
   const componentVNodeHooks = {
-    init() {},
-    prepatch() {},
-    insert() {},
-    destroy() {},
+    init() {
+      console.log("this is componentVNodeHooks -- init");
+    },
+    prepatch() {
+      console.log("this is componentVNodeHooks -- prepatch");
+    },
+    insert() {
+      console.log("this is componentVNodeHooks -- insert");
+    },
+    destroy() {
+      console.log("this is componentVNodeHooks -- destroy");
+    },
   };
   const hooksToMerge = Object.keys(componentVNodeHooks);
   function createComponent(Ctor, data, context, children, tag) {
@@ -517,6 +525,16 @@
     function createComponent(vnode, insertedVnodeQueue, parentElm, refElm) {
       let i = vnode.data;
       console.log("this is vnode in createComponent*****", vnode);
+      if (isDef(i)) {
+        const isReactivated = isDef(vnode.componentInstance) && i.keepAlive;
+        if (isDef((i = i.hook)) && isDef((i = i.init))) {
+          // 相当于调用componentVNodeHooks中的方法，componentVNodeHooks在create-component中定义的
+          i(vnode, false);
+        }
+        if (isDef(vnode.componentInstance)) {
+          console.log("this is in patch ----- createComponent");
+        }
+      }
     }
 
     function insert(parent, elm, ref) {

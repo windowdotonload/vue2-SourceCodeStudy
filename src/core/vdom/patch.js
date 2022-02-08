@@ -50,6 +50,9 @@ export function createPatchFunction(backend) {
         // 相当于调用componentVNodeHooks中的方法，componentVNodeHooks在create-component中定义的
         i(vnode, false);
       }
+      if (isDef(vnode.componentInstance)) {
+        console.log("this is in patch ----- createComponent");
+      }
     }
   }
 

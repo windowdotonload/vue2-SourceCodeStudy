@@ -2,10 +2,18 @@ import { isUndef, isObject } from "../utils/index";
 import VNode from "./vnode";
 // import { resolveConstructorOptions } from "../instance/init";
 const componentVNodeHooks = {
-  init() {},
-  prepatch() {},
-  insert() {},
-  destroy() {},
+  init() {
+    console.log("this is componentVNodeHooks -- init");
+  },
+  prepatch() {
+    console.log("this is componentVNodeHooks -- prepatch");
+  },
+  insert() {
+    console.log("this is componentVNodeHooks -- insert");
+  },
+  destroy() {
+    console.log("this is componentVNodeHooks -- destroy");
+  },
 };
 const hooksToMerge = Object.keys(componentVNodeHooks);
 export function createComponent(Ctor, data, context, children, tag) {
