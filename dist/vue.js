@@ -142,10 +142,74 @@
     return res;
   }
 
+  /*
+   * @Descripttion:
+   * @version:
+   * @Author: windowdotonload
+   */
+
+  class Watcher {
+    constructor(vm, expOrFn, cb, options, isRenderWatcher) {
+      console.log("this is Watcher ===>", vm, expOrFn);
+    }
+  }
+
+  function lifecycleMixin(Vue) {
+    Vue.prototype._update = function (vnode, hydrating) {
+      const vm = this;
+      const prevVnode = vm._vnode;
+      console.log("this is vm in _update of lifecycle", vm, vnode);
+      if (!prevVnode) {
+        // initial render
+        vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false);
+      }
+      console.log("lifecycleMixin after __patch__");
+    };
+  }
+
+  function mountComponent(vm, el, hydrating) {
+    vm.$el = el;
+    let updateComponent;
+
+    updateComponent = () => {
+      vm._update(vm._render(), hydrating);
+    };
+
+    console.log(
+      "this is return VNODE in lifeCycle",
+      vm._update(vm._render(), hydrating),
+      vm
+    );
+
+    new Watcher(
+      vm,
+      updateComponent,
+      noop,
+      {
+        //   before() {
+        //     if (vm._isMounted && !vm._isDestroyed) {
+        //       callHook(vm, "beforeUpdate");
+        //     }
+        //   },
+      },
+      true /* isRenderWatcher */
+    );
+    return vm;
+  }
+
   // import { resolveConstructorOptions } from "../instance/init";
   const componentVNodeHooks = {
-    init() {
+    init(vnode, hydrating) {
       console.log("this is componentVNodeHooks -- init");
+      if (
+        vnode.componentInstance &&
+        !vnode.componentInstance._isDestroyed &&
+        vnode.data.keepAlive
+      ) {
+        console.log("vnode.componentInstance");
+      } else {
+        const child = (vnode.componentInstance = createComponentInstanceForVnode());
+      }
     },
     prepatch() {
       console.log("this is componentVNodeHooks -- prepatch");
@@ -198,6 +262,10 @@
     return vnode;
   }
 
+  function createComponentInstanceForVnode(vnode, parent) {
+    // return new vnode.componentOptions.Ctor(options);
+  }
+
   function installComponentHooks(data) {
     const hooks = data.hook || (data.hook = {});
     for (let i = 0; i < hooksToMerge.length; i++) {
@@ -222,6 +290,7 @@
 
   const SIMPLE_NORMALIZE = 1;
   const ALWAYS_NORMALIZE = 2;
+
   function createElement(
     context,
     tag,
@@ -336,61 +405,6 @@
     return options;
   }
 
-  /*
-   * @Descripttion:
-   * @version:
-   * @Author: windowdotonload
-   */
-
-  class Watcher {
-    constructor(vm, expOrFn, cb, options, isRenderWatcher) {
-      console.log("this is Watcher ===>", vm, expOrFn);
-    }
-  }
-
-  function lifecycleMixin(Vue) {
-    Vue.prototype._update = function (vnode, hydrating) {
-      const vm = this;
-      const prevVnode = vm._vnode;
-      console.log("this is vm in _update of lifecycle", vm, vnode);
-      if (!prevVnode) {
-        // initial render
-        vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false);
-      }
-      console.log("lifecycleMixin after __patch__");
-    };
-  }
-
-  function mountComponent(vm, el, hydrating) {
-    vm.$el = el;
-    let updateComponent;
-
-    updateComponent = () => {
-      vm._update(vm._render(), hydrating);
-    };
-
-    console.log(
-      "this is return VNODE in lifeCycle",
-      vm._update(vm._render(), hydrating),
-      vm
-    );
-
-    new Watcher(
-      vm,
-      updateComponent,
-      noop,
-      {
-        //   before() {
-        //     if (vm._isMounted && !vm._isDestroyed) {
-        //       callHook(vm, "beforeUpdate");
-        //     }
-        //   },
-      },
-      true /* isRenderWatcher */
-    );
-    return vm;
-  }
-
   // import { warn } from "../util/index";
 
   function Vue(options) {
@@ -438,12 +452,6 @@
 
     initExtend(Vue);
   }
-
-  /*
-   * @Descripttion:
-   * @version:
-   * @Author: windowdotonload
-   */
 
   initGlobalAPI(Vue);
 
@@ -532,7 +540,7 @@
           i(vnode, false);
         }
         if (isDef(vnode.componentInstance)) {
-          console.log("this is in patch ----- createComponent");
+          console.log("this is in patch -- createComponent");
         }
       }
     }
