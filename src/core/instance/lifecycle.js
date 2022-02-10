@@ -1,5 +1,8 @@
 import { noop } from "../utils/index";
 import Watcher from "../observer/watcher";
+
+export let activeInstance = null;
+
 export function lifecycleMixin(Vue) {
   Vue.prototype._update = function (vnode, hydrating) {
     const vm = this;

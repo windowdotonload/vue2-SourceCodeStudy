@@ -1,9 +1,22 @@
 import { isUndef, isObject } from "../utils/index";
 import VNode from "./vnode";
+import { activeInstance } from "../instance/lifecycle";
 // import { resolveConstructorOptions } from "../instance/init";
 const componentVNodeHooks = {
   init(vnode, hydrating) {
     console.log("this is componentVNodeHooks -- init");
+    if (
+      vnode.componentInstance &&
+      !vnode.componentInstance._isDestroyed &&
+      vnode.data.keepAlive
+    ) {
+      console.log("vnode.componentInstance");
+    } else {
+      const child = (vnode.componentInstance = createComponentInstanceForVnode(
+        vnode,
+        activeInstance
+      ));
+    }
   },
   prepatch() {
     console.log("this is componentVNodeHooks -- prepatch");
