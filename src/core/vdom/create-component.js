@@ -69,6 +69,8 @@ export function createComponent(Ctor, data, context, children, tag) {
   return vnode;
 }
 
+export function createComponentInstanceForVnode(vnode, parent) {}
+
 function installComponentHooks(data) {
   const hooks = data.hook || (data.hook = {});
   for (let i = 0; i < hooksToMerge.length; i++) {

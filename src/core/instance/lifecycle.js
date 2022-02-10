@@ -3,15 +3,25 @@ import Watcher from "../observer/watcher";
 
 export let activeInstance = null;
 
+export function setActiveInstance(vm) {
+  const prevActiveInstance = activeInstance;
+  activeInstance = vm;
+  return () => {
+    activeInstance = prevActiveInstance;
+  };
+}
+
 export function lifecycleMixin(Vue) {
   Vue.prototype._update = function (vnode, hydrating) {
     const vm = this;
     const prevVnode = vm._vnode;
+    const restoreActiveInstance = setActiveInstance(vm);
     console.log("this is vm in _update of lifecycle", vm, vnode);
     if (!prevVnode) {
       // initial render
       vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false);
     }
+    restoreActiveInstance();
     console.log("lifecycleMixin after __patch__");
   };
 }
