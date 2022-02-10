@@ -154,15 +154,27 @@
     }
   }
 
+  let activeInstance = null;
+
+  function setActiveInstance(vm) {
+    const prevActiveInstance = activeInstance;
+    activeInstance = vm;
+    return () => {
+      activeInstance = prevActiveInstance;
+    };
+  }
+
   function lifecycleMixin(Vue) {
     Vue.prototype._update = function (vnode, hydrating) {
       const vm = this;
       const prevVnode = vm._vnode;
+      const restoreActiveInstance = setActiveInstance(vm);
       console.log("this is vm in _update of lifecycle", vm, vnode);
       if (!prevVnode) {
         // initial render
         vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false);
       }
+      restoreActiveInstance();
       console.log("lifecycleMixin after __patch__");
     };
   }
@@ -208,7 +220,10 @@
       ) {
         console.log("vnode.componentInstance");
       } else {
-        const child = (vnode.componentInstance = createComponentInstanceForVnode());
+        const child = (vnode.componentInstance = createComponentInstanceForVnode(
+          vnode,
+          activeInstance
+        ));
       }
     },
     prepatch() {
@@ -263,7 +278,12 @@
   }
 
   function createComponentInstanceForVnode(vnode, parent) {
-    // return new vnode.componentOptions.Ctor(options);
+    const options = {
+      _isComponent: true,
+      _parentVnode: vnode,
+      parent,
+    };
+    return new vnode.componentOptions.Ctor(options);
   }
 
   function installComponentHooks(data) {
@@ -381,7 +401,9 @@
     console.log("this is Vue before mergeoptions", Vue.options);
     Vue.prototype._init = function (options) {
       const vm = this;
-      if (options && options._isComponent) ; else {
+      if (options && options._isComponent) {
+        vm.$options = options;
+      } else {
         vm.$options = mergeOptions(
           options || {},
           resolveConstructorOptions(vm.constructor),

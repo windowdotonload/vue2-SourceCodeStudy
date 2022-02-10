@@ -75,7 +75,7 @@ export function createComponentInstanceForVnode(vnode, parent) {
     _parentVnode: vnode,
     parent,
   };
-  // return new vnode.componentOptions.Ctor(options);
+  return new vnode.componentOptions.Ctor(options);
 }
 
 function installComponentHooks(data) {
