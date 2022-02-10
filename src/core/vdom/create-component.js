@@ -2,7 +2,7 @@ import { isUndef, isObject } from "../utils/index";
 import VNode from "./vnode";
 // import { resolveConstructorOptions } from "../instance/init";
 const componentVNodeHooks = {
-  init() {
+  init(vnode, hydrating) {
     console.log("this is componentVNodeHooks -- init");
   },
   prepatch() {
