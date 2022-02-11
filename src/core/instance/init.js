@@ -10,7 +10,7 @@ export function initMixin(Vue) {
   Vue.prototype._init = function (options) {
     const vm = this;
     if (options && options._isComponent) {
-      vm.$options = options;
+      initInternalComponent(vm, options);
     } else {
       vm.$options = mergeOptions(
         options || {},
@@ -27,6 +27,8 @@ export function initMixin(Vue) {
     }
   };
 }
+
+export function initInternalComponent(vm, options) {}
 
 export function resolveConstructorOptions(Ctor) {
   let options = Ctor.options;
