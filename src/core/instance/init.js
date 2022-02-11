@@ -28,7 +28,12 @@ export function initMixin(Vue) {
   };
 }
 
-export function initInternalComponent(vm, options) {}
+export function initInternalComponent(vm, options) {
+  const opts = (vm.$options = Object.create(vm.constructor.options));
+  const parentVnode = options._parentVnode;
+  opts.parent = options.parent;
+  opts._parentVnode = parentVnode;
+}
 
 export function resolveConstructorOptions(Ctor) {
   let options = Ctor.options;
