@@ -11,6 +11,10 @@ export function setActiveInstance(vm) {
   };
 }
 
+export function initLifecycle(vm) {
+  const options = vm.$options;
+}
+
 export function lifecycleMixin(Vue) {
   Vue.prototype._update = function (vnode, hydrating) {
     const vm = this;
