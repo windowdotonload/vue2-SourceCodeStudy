@@ -1,6 +1,7 @@
 import { initRender } from "./render";
 import { initProxy } from "./proxy";
 import { mergeOptions } from "../utils/index";
+import { initLifecycle } from "./lifecycle";
 
 export function initMixin(Vue) {
   // 在此处的Vue.option为undefined
@@ -21,6 +22,8 @@ export function initMixin(Vue) {
 
     console.log("this is vm after merge options ====>", vm);
     initProxy(vm);
+
+    initLifecycle(vm);
     initRender(vm);
     if (vm.$options.el) {
       vm.$mount(this.$options.el);
