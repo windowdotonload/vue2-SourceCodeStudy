@@ -171,6 +171,7 @@
     if (parent && !options.abstract) {
       parent.$children.push(vm);
     }
+    vm.$children = [];
     console.log("this is paraent in initLifecycle =======", parent);
   }
 

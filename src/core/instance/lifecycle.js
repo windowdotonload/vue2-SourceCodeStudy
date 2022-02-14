@@ -18,6 +18,9 @@ export function initLifecycle(vm) {
   if (parent && !options.abstract) {
     parent.$children.push(vm);
   }
+
+  vm.$parent = parent;
+  vm.$children = [];
   console.log("this is paraent in initLifecycle =======", parent);
 }
 
