@@ -164,6 +164,16 @@
     };
   }
 
+  function initLifecycle(vm) {
+    const options = vm.$options;
+
+    let parent = options.parent;
+    if (parent && !options.abstract) {
+      parent.$children.push(vm);
+    }
+    console.log("this is paraent in initLifecycle =======", parent);
+  }
+
   function lifecycleMixin(Vue) {
     Vue.prototype._update = function (vnode, hydrating) {
       const vm = this;
@@ -237,6 +247,7 @@
     },
   };
   const hooksToMerge = Object.keys(componentVNodeHooks);
+
   function createComponent(Ctor, data, context, children, tag) {
     if (isUndef(Ctor)) {
       return;
@@ -413,6 +424,8 @@
 
       console.log("this is vm after merge options ====>", vm);
       initProxy(vm);
+
+      initLifecycle(vm);
       initRender(vm);
       if (vm.$options.el) {
         vm.$mount(this.$options.el);

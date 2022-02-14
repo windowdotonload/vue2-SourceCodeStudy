@@ -29,6 +29,7 @@ const componentVNodeHooks = {
   },
 };
 const hooksToMerge = Object.keys(componentVNodeHooks);
+
 export function createComponent(Ctor, data, context, children, tag) {
   if (isUndef(Ctor)) {
     return;

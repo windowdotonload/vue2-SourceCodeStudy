@@ -13,6 +13,12 @@ export function setActiveInstance(vm) {
 
 export function initLifecycle(vm) {
   const options = vm.$options;
+
+  let parent = options.parent;
+  if (parent && !options.abstract) {
+    parent.$children.push(vm);
+  }
+  console.log("this is paraent in initLifecycle =======", parent);
 }
 
 export function lifecycleMixin(Vue) {
