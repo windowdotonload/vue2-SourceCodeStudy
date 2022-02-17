@@ -5,5 +5,6 @@ export function initGlobalAPI(Vue) {
   Vue.options = Object.create(null);
   Vue.options._base = Vue;
 
+  // 初始化Vue.extend，继承
   initExtend(Vue);
 }
