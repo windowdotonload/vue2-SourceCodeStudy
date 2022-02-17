@@ -7,7 +7,7 @@ import { lifecycleMixin } from "./lifecycle";
 // import { warn } from "../util/index";
 
 function Vue(options) {
-  console.log("this is VUE =======>", options);
+  console.log("THIS IS VUE IN NEW VUE =======> ", options);
   this._init(options);
 }
 

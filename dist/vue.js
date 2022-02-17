@@ -171,6 +171,8 @@
     if (parent && !options.abstract) {
       parent.$children.push(vm);
     }
+
+    vm.$parent = parent;
     vm.$children = [];
     console.log("this is paraent in initLifecycle =======", parent);
   }
@@ -412,6 +414,8 @@
     // 所以会在最后执行实例new Vue时候通过实例vm.constructor拿到Vue构造函数才能合并options，因为options相当于Vue的一个静态属性
     console.log("this is Vue before mergeoptions", Vue.options);
     Vue.prototype._init = function (options) {
+      // _init为入口函数
+      // 无论是组件还是子组件都会调用_init ,_init会多次调用，不同的时机会命中不同的判断
       const vm = this;
       if (options && options._isComponent) {
         initInternalComponent(vm, options);
@@ -462,7 +466,7 @@
   // import { warn } from "../util/index";
 
   function Vue(options) {
-    console.log("this is VUE =======>", options);
+    console.log("THIS IS VUE IN NEW VUE =======> ", options);
     this._init(options);
   }
 
