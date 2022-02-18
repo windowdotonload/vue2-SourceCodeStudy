@@ -12,7 +12,6 @@ function Vue(options) {
 }
 
 initMixin(Vue);
-
 // stateMixin(Vue);
 // eventsMixin(Vue);
 lifecycleMixin(Vue);
