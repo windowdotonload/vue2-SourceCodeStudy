@@ -47,12 +47,6 @@ export function mountComponent(vm, el, hydrating) {
     vm._update(vm._render(), hydrating);
   };
 
-  console.log(
-    "this is return VNODE in lifeCycle",
-    vm._update(vm._render(), hydrating),
-    vm
-  );
-
   new Watcher(
     vm,
     updateComponent,

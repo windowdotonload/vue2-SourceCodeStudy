@@ -151,6 +151,7 @@
   class Watcher {
     constructor(vm, expOrFn, cb, options, isRenderWatcher) {
       console.log("this is Watcher ===>", vm, expOrFn);
+      expOrFn();
     }
   }
 
@@ -200,11 +201,11 @@
       vm._update(vm._render(), hydrating);
     };
 
-    console.log(
-      "this is return VNODE in lifeCycle",
-      vm._update(vm._render(), hydrating),
-      vm
-    );
+    // console.log(
+    //   "this is return VNODE in lifeCycle",
+    //   vm._update(vm._render(), hydrating),
+    //   vm
+    // );
 
     new Watcher(
       vm,
@@ -471,7 +472,6 @@
   }
 
   initMixin(Vue);
-
   // stateMixin(Vue);
   // eventsMixin(Vue);
   lifecycleMixin(Vue);
@@ -508,6 +508,7 @@
     Vue.options = Object.create(null);
     Vue.options._base = Vue;
 
+    // 初始化Vue.extend，继承
     initExtend(Vue);
   }
 
