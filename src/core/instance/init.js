@@ -11,6 +11,7 @@ export function initMixin(Vue) {
   Vue.prototype._init = function (options) {
     // _init为入口函数
     // 无论是组件还是子组件都会调用_init ,_init会多次调用，不同的时机会命中不同的判断
+    // this 指向的是实例 ，父组件调用就是指向的父实例，子组件调用就是指向的子实例
     const vm = this;
     if (options && options._isComponent) {
       initInternalComponent(vm, options);
@@ -34,6 +35,8 @@ export function initMixin(Vue) {
 }
 
 export function initInternalComponent(vm, options) {
+  debugger;
+  // vm.constructor.options是经过mergeOptions合并过的Sub.Options
   const opts = (vm.$options = Object.create(vm.constructor.options));
   const parentVnode = options._parentVnode;
   opts.parent = options.parent;
@@ -53,7 +56,5 @@ export function initInternalComponent(vm, options) {
 
 export function resolveConstructorOptions(Ctor) {
   let options = Ctor.options;
-  console.log("this is ctor in resolveConstructorOptions", options);
-  console.dir(Ctor);
   return options;
 }

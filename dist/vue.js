@@ -439,6 +439,7 @@
   }
 
   function initInternalComponent(vm, options) {
+    debugger;
     const opts = (vm.$options = Object.create(vm.constructor.options));
     const parentVnode = options._parentVnode;
     opts.parent = options.parent;
