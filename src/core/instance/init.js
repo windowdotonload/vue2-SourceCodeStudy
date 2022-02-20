@@ -35,7 +35,6 @@ export function initMixin(Vue) {
 }
 
 export function initInternalComponent(vm, options) {
-  debugger;
   // vm.constructor.options是经过mergeOptions合并过的Sub.Options
   const opts = (vm.$options = Object.create(vm.constructor.options));
   const parentVnode = options._parentVnode;
