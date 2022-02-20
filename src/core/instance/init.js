@@ -16,8 +16,8 @@ export function initMixin(Vue) {
       initInternalComponent(vm, options);
     } else {
       vm.$options = mergeOptions(
-        options || {},
         resolveConstructorOptions(vm.constructor),
+        options || {},
         vm
       );
     }

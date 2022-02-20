@@ -117,7 +117,7 @@
     }
     return children;
   }
-
+  // 如果children是一个原始值，创建一个textnode的vnode
   function normalizeChildren(children) {
     return isPrimitive(children)
       ? [createTextVNode(children)]
@@ -201,12 +201,6 @@
       vm._update(vm._render(), hydrating);
     };
 
-    // console.log(
-    //   "this is return VNODE in lifeCycle",
-    //   vm._update(vm._render(), hydrating),
-    //   vm
-    // );
-
     new Watcher(
       vm,
       updateComponent,
@@ -253,6 +247,7 @@
   const hooksToMerge = Object.keys(componentVNodeHooks);
 
   function createComponent(Ctor, data, context, children, tag) {
+    debugger;
     if (isUndef(Ctor)) {
       return;
     }
@@ -393,6 +388,7 @@
       const vm = this;
       let vnode;
       const { render } = vm.$options;
+      // C("div", [C("h2", "bcd"), C("aaa", "123"), C("bbb", "123")]);
       vnode = render.call(vm._renderProxy, vm.$createElement);
       return vnode;
     };
@@ -422,8 +418,8 @@
         initInternalComponent(vm, options);
       } else {
         vm.$options = mergeOptions(
-          options || {},
           resolveConstructorOptions(vm.constructor),
+          options || {},
           vm
         );
       }

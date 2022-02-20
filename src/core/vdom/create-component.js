@@ -31,6 +31,7 @@ const componentVNodeHooks = {
 const hooksToMerge = Object.keys(componentVNodeHooks);
 
 export function createComponent(Ctor, data, context, children, tag) {
+  debugger;
   if (isUndef(Ctor)) {
     return;
   }

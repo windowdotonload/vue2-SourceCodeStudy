@@ -9,6 +9,7 @@ export function renderMixin(Vue) {
     const vm = this;
     let vnode;
     const { render } = vm.$options;
+    // C("div", [C("h2", "bcd"), C("aaa", "123"), C("bbb", "123")]);
     vnode = render.call(vm._renderProxy, vm.$createElement);
     return vnode;
   };

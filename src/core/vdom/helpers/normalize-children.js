@@ -9,7 +9,7 @@ export function simpleNormalizeChildren(children) {
   }
   return children;
 }
-
+// 如果children是一个原始值，创建一个textnode的vnode
 export function normalizeChildren(children) {
   return isPrimitive(children)
     ? [createTextVNode(children)]
