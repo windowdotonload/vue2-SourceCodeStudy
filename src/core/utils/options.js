@@ -20,6 +20,7 @@ export function mergeOptions(parent, child, vm) {
   }
   function mergeField(key) {
     const strat = strats[key] || defaultStrat;
+    // 合并父组件与子组件中的option，如果父子组件有相同的option，直接返回子组件的option
     options[key] = strat(parent[key], child[key], vm, key);
   }
   return options;

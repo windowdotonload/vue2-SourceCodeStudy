@@ -94,6 +94,8 @@ function installComponentHooks(data) {
 
 function mergeHook(f1, f2) {
   console.log("this is in mergehooook");
+  // 合并生命周期钩子，如果父子组件都有相同的钩子，合并之后依次执行
+  // 所以钩子函数有相同的是都会执行，而options中的属性是会覆盖
   const merged = (a, b) => {
     f1(a, b);
     f2(a, b);
