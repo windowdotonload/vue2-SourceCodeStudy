@@ -3,6 +3,7 @@ export function initExtend(Vue) {
   Vue.cid = 0;
   let cid = 1;
   Vue.extend = function (extendOptions) {
+    console.log("this is extendOptions ==========>", extendOptions);
     extendOptions = extendOptions || {};
     const Super = this;
     const SuperId = Super.cid;
@@ -21,6 +22,7 @@ export function initExtend(Vue) {
     Sub.cid = cid++;
     console.log("this is Sub cid", Sub.cid);
     Sub.options = mergeOptions(Super.options, extendOptions);
+    console.log("this is SubOptions in extend ============>", Sub.options);
     return Sub;
   };
 }

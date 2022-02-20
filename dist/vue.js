@@ -96,6 +96,7 @@
     }
     function mergeField(key) {
       const strat = strats[key] || defaultStrat;
+      // 合并父组件与子组件中的option，如果父子组件有相同的option，直接返回子组件的option
       options[key] = strat(parent[key], child[key], vm, key);
     }
     return options;
@@ -247,7 +248,6 @@
   const hooksToMerge = Object.keys(componentVNodeHooks);
 
   function createComponent(Ctor, data, context, children, tag) {
-    debugger;
     if (isUndef(Ctor)) {
       return;
     }
@@ -293,6 +293,7 @@
       _parentVnode: vnode,
       parent,
     };
+    // 调用Sub._init()
     return new vnode.componentOptions.Ctor(options);
   }
 
@@ -310,6 +311,8 @@
 
   function mergeHook(f1, f2) {
     console.log("this is in mergehooook");
+    // 合并生命周期钩子，如果父子组件都有相同的钩子，合并之后依次执行
+    // 所以钩子函数有相同的是都会执行，而options中的属性是会覆盖
     const merged = (a, b) => {
       f1(a, b);
       f2(a, b);
@@ -477,6 +480,7 @@
     Vue.cid = 0;
     let cid = 1;
     Vue.extend = function (extendOptions) {
+      console.log("this is extendOptions ==========>", extendOptions);
       extendOptions = extendOptions || {};
       const Super = this;
       const SuperId = Super.cid;
@@ -495,6 +499,7 @@
       Sub.cid = cid++;
       console.log("this is Sub cid", Sub.cid);
       Sub.options = mergeOptions(Super.options, extendOptions);
+      console.log("this is SubOptions in extend ============>", Sub.options);
       return Sub;
     };
   }
@@ -587,11 +592,12 @@
 
     function createComponent(vnode, insertedVnodeQueue, parentElm, refElm) {
       let i = vnode.data;
-      console.log("this is vnode in createComponent*****", vnode);
+      console.log("this is vnode in createComponent*****", vnode.data);
       if (isDef(i)) {
         const isReactivated = isDef(vnode.componentInstance) && i.keepAlive;
         if (isDef((i = i.hook)) && isDef((i = i.init))) {
           // 相当于调用componentVNodeHooks中的方法，componentVNodeHooks在create-component中定义的
+          // 创建出了一个子实例
           i(vnode, false);
         }
         if (isDef(vnode.componentInstance)) {

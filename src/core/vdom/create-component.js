@@ -31,7 +31,6 @@ const componentVNodeHooks = {
 const hooksToMerge = Object.keys(componentVNodeHooks);
 
 export function createComponent(Ctor, data, context, children, tag) {
-  debugger;
   if (isUndef(Ctor)) {
     return;
   }
@@ -77,6 +76,7 @@ export function createComponentInstanceForVnode(vnode, parent) {
     _parentVnode: vnode,
     parent,
   };
+  // 调用Sub._init()
   return new vnode.componentOptions.Ctor(options);
 }
 

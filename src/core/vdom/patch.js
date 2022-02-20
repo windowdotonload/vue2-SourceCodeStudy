@@ -43,11 +43,12 @@ export function createPatchFunction(backend) {
 
   function createComponent(vnode, insertedVnodeQueue, parentElm, refElm) {
     let i = vnode.data;
-    console.log("this is vnode in createComponent*****", vnode);
+    console.log("this is vnode in createComponent*****", vnode.data);
     if (isDef(i)) {
       const isReactivated = isDef(vnode.componentInstance) && i.keepAlive;
       if (isDef((i = i.hook)) && isDef((i = i.init))) {
         // 相当于调用componentVNodeHooks中的方法，componentVNodeHooks在create-component中定义的
+        // 创建出了一个子实例
         i(vnode, false);
       }
       if (isDef(vnode.componentInstance)) {
