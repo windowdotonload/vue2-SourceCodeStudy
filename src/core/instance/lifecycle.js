@@ -12,6 +12,7 @@ export function setActiveInstance(vm) {
 }
 
 export function initLifecycle(vm) {
+  // 应为Sub._init()也会合并options，所以会存在parent属性
   const options = vm.$options;
 
   let parent = options.parent;

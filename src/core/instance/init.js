@@ -26,6 +26,7 @@ export function initMixin(Vue) {
     console.log("this is vm after merge options ====>", vm);
     initProxy(vm);
 
+    // 创建子组件时 再次_init(),会mergeOptions，此时的￥options里包含了createComponentInstanceForVnode中的options
     initLifecycle(vm);
     initRender(vm);
     if (vm.$options.el) {
