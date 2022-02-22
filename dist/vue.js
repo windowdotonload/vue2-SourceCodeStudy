@@ -167,6 +167,7 @@
   }
 
   function initLifecycle(vm) {
+    // 应为Sub._init()也会合并options，所以会存在parent属性
     const options = vm.$options;
 
     let parent = options.parent;
@@ -233,6 +234,7 @@
           vnode,
           activeInstance
         ));
+        child.$mount(hydrating ? vnode.elm : undefined, hydrating);
       }
     },
     prepatch() {
@@ -431,6 +433,7 @@
       console.log("this is vm after merge options ====>", vm);
       initProxy(vm);
 
+      // 创建子组件时 再次_init(),会mergeOptions，此时的￥options里包含了createComponentInstanceForVnode中的options
       initLifecycle(vm);
       initRender(vm);
       if (vm.$options.el) {
