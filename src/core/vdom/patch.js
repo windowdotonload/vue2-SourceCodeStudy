@@ -83,7 +83,6 @@ export function createPatchFunction(backend) {
   }
 
   return function patch(oldVnode, vnode, hydrating, removeOnly) {
-    debugger;
     const insertedVnodeQueue = [];
     if (isUndef(oldVnode)) {
     } else {

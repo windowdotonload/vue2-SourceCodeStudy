@@ -633,7 +633,6 @@
     }
 
     return function patch(oldVnode, vnode, hydrating, removeOnly) {
-      debugger;
       const insertedVnodeQueue = [];
       if (isUndef(oldVnode)) ; else {
         const isRealElement = isDef(oldVnode.nodeType);
