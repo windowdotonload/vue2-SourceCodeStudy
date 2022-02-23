@@ -5,9 +5,9 @@ Vue.prototype.$mount = function (el, hydrating) {
   el = query(el);
   const options = this.$options;
   console.log("this is  options ============>", options);
-  if (options.__componentTag) {
+  if (options._componentTag) {
     const render = function (c) {
-      return c("div", [c("aaa")]);
+      return c("div", "aaa");
     };
     options.render = render;
   }
@@ -27,7 +27,7 @@ Vue.prototype.$mount = function (el, hydrating) {
     if (template) {
       // TODO
       let render = function (C) {
-        return C("div", [C("h2", "bcd"), C("aaa", "123"), C("bbb", "123")]);
+        return C("div", [C("h2", "bcd"), C("aaa", "123")]);
       };
       options.render = render;
     }

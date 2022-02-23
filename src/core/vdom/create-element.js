@@ -59,6 +59,7 @@ export function _createElement(
       console.log("this is Ctor after createcomponent", Ctor);
     } else {
       vnode = new VNode(tag, data, children, undefined, undefined, context);
+      console.log("this is vnode ========>_createElement", vnode);
     }
   }
 

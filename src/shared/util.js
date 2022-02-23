@@ -1,6 +1,8 @@
 export function noop(a, b, c) {}
 
-export const no = (a, b, c) => false;
+export const no = (a, b, c) => {
+  return a.includes("div") || a.includes("h");
+}; //TODO
 
 export const identity = (_) => _;
 

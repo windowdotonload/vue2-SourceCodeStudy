@@ -37,7 +37,9 @@
 
   function noop(a, b, c) {}
 
-  const no = (a, b, c) => false;
+  const no = (a, b, c) => {
+    return a.includes("div") || a.includes("h");
+  }; //TODO
 
   const identity = (_) => _;
 
@@ -378,6 +380,7 @@
         console.log("this is Ctor after createcomponent", Ctor);
       } else {
         vnode = new VNode(tag, data, children, undefined, undefined, context);
+        console.log("this is vnode ========>_createElement", vnode);
       }
     }
 
@@ -630,6 +633,7 @@
     }
 
     return function patch(oldVnode, vnode, hydrating, removeOnly) {
+      debugger;
       const insertedVnodeQueue = [];
       if (isUndef(oldVnode)) ; else {
         const isRealElement = isDef(oldVnode.nodeType);
@@ -684,9 +688,9 @@
     el = query(el);
     const options = this.$options;
     console.log("this is  options ============>", options);
-    if (options.__componentTag) {
+    if (options._componentTag) {
       const render = function (c) {
-        return c("div", [c("aaa")]);
+        return c("div", "aaa");
       };
       options.render = render;
     }
@@ -703,7 +707,7 @@
       if (template) {
         // TODO
         let render = function (C) {
-          return C("div", [C("h2", "bcd"), C("aaa", "123"), C("bbb", "123")]);
+          return C("div", [C("h2", "bcd"), C("aaa", "123")]);
         };
         options.render = render;
       }
