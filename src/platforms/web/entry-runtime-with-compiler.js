@@ -4,7 +4,13 @@ const mount = Vue.prototype.$mount;
 Vue.prototype.$mount = function (el, hydrating) {
   el = query(el);
   const options = this.$options;
-
+  console.log("this is  options ============>", options);
+  if (options.__componentTag) {
+    const render = function (c) {
+      return c("div", [c("aaa")]);
+    };
+    options.render = render;
+  }
   if (!options.render) {
     let template = options.template;
     if (template) {
