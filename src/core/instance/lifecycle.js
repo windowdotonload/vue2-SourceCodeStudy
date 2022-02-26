@@ -28,7 +28,6 @@ export function initLifecycle(vm) {
 export function lifecycleMixin(Vue) {
   Vue.prototype._update = function (vnode, hydrating) {
     const vm = this;
-    // TODO
     const prevVnode = vm._vnode;
     const restoreActiveInstance = setActiveInstance(vm);
     console.log("this is vm in _update of lifecycle", vm, vnode);
