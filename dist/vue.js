@@ -186,12 +186,17 @@
     Vue.prototype._update = function (vnode, hydrating) {
       const vm = this;
       const prevVnode = vm._vnode;
+      console.log("this is vnode ===========>", vnode);
       const restoreActiveInstance = setActiveInstance(vm);
+      vm._vnode = vnode;
       console.log("this is vm in _update of lifecycle", vm, vnode);
       if (!prevVnode) {
         // initial render
         vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false);
       }
+      // else {
+      //   vm.$el = vm.__patch__(prevVnode, vnode);
+      // }
       restoreActiveInstance();
       console.log("lifecycleMixin after __patch__");
     };
@@ -395,7 +400,8 @@
     Vue.prototype._render = function () {
       const vm = this;
       let vnode;
-      const { render } = vm.$options;
+      const { render, _parentVnode } = vm.$options;
+      vm.$vnode = _parentVnode;
       // C("div", [C("h2", "bcd"), C("aaa", "123"), C("bbb", "123")]);
       vnode = render.call(vm._renderProxy, vm.$createElement);
       console.log("this is vnode in renderMixin ===========>", vnode);
@@ -634,7 +640,9 @@
 
     return function patch(oldVnode, vnode, hydrating, removeOnly) {
       const insertedVnodeQueue = [];
-      if (isUndef(oldVnode)) ; else {
+      if (isUndef(oldVnode)) {
+        createElm(vnode);
+      } else {
         const isRealElement = isDef(oldVnode.nodeType);
         if (isRealElement) {
           oldVnode = emptyNodeAt(oldVnode);
