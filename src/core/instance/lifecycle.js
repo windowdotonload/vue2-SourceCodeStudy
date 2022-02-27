@@ -30,6 +30,7 @@ export function lifecycleMixin(Vue) {
     const vm = this;
     const prevVnode = vm._vnode;
     const restoreActiveInstance = setActiveInstance(vm);
+    vm._vnode = vnode;
     console.log("this is vm in _update of lifecycle", vm, vnode);
     if (!prevVnode) {
       // initial render
