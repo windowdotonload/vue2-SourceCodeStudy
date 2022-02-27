@@ -85,6 +85,7 @@ export function createPatchFunction(backend) {
   return function patch(oldVnode, vnode, hydrating, removeOnly) {
     const insertedVnodeQueue = [];
     if (isUndef(oldVnode)) {
+      createElm(vnode, insertedVnodeQueue);
     } else {
       const isRealElement = isDef(oldVnode.nodeType);
       if (isRealElement) {

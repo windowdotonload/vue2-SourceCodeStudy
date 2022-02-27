@@ -35,6 +35,8 @@ export function lifecycleMixin(Vue) {
     if (!prevVnode) {
       // initial render
       vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false);
+    } else {
+      vm.$el = vm.__patch__(prevVnode, vnode);
     }
     restoreActiveInstance();
     console.log("lifecycleMixin after __patch__");
