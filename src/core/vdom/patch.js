@@ -23,7 +23,6 @@ export function createPatchFunction(backend) {
     ownerArray,
     index
   ) {
-    console.log('this is vnode in createElM =======>',vnode)
     if (createComponent(vnode, insertedVnodeQueue, parentElm, refElm)) {
       return;
     }
@@ -40,28 +39,28 @@ export function createPatchFunction(backend) {
     }
   }
 
-  function createComponent(vnode, insertedVnodeQueue, parentElm, refElm) {    
+  function createComponent(vnode, insertedVnodeQueue, parentElm, refElm) {
     let i = vnode.data;
     console.log("this is vnode in createComponent*****", vnode.data);
     if (isDef(i)) {
       const isReactivated = isDef(vnode.componentInstance) && i.keepAlive;
       if (isDef((i = i.hook)) && isDef((i = i.init))) {
         // 相当于调用componentVNodeHooks中的方法，componentVNodeHooks在create-component中定义的
-        // 创建出了一个子实例 
+        // 创建出了一个子实例
         i(vnode, false);
       }
       if (isDef(vnode.componentInstance)) {
-        initComponent(vnode, insertedVnodeQueue)
-        insert(parentElm, vnode.elm)
+        initComponent(vnode, insertedVnodeQueue);
+        insert(parentElm, vnode.elm);
       }
-      return true
+      return true;
     }
   }
 
-  function initComponent (vnode, insertedVnodeQueue) {
+  function initComponent(vnode, insertedVnodeQueue) {
     if (isDef(vnode.data.pendingInsert)) {
     }
-    vnode.elm = vnode.componentInstance.$el
+    vnode.elm = vnode.componentInstance.$el;
   }
 
   function insert(parent, elm, ref) {
@@ -89,7 +88,7 @@ export function createPatchFunction(backend) {
     }
   }
 
-  return function patch(oldVnode, vnode, hydrating, removeOnly) {   
+  return function patch(oldVnode, vnode, hydrating, removeOnly) {
     const insertedVnodeQueue = [];
     if (isUndef(oldVnode)) {
       createElm(vnode, insertedVnodeQueue);
@@ -106,6 +105,6 @@ export function createPatchFunction(backend) {
       console.log("this is parentElm in patch of core/vom", parentElm);
       createElm(vnode, insertedVnodeQueue, parentElm);
     }
-    return vnode.elm
+    return vnode.elm;
   };
 }
