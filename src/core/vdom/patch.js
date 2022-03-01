@@ -52,13 +52,14 @@ export function createPatchFunction(backend) {
       if (isDef(vnode.componentInstance)) {
         initComponent(vnode, insertedVnodeQueue);
         insert(parentElm, vnode.elm);
+        return true;
       }
-      return true;
     }
   }
 
   function initComponent(vnode, insertedVnodeQueue) {
     if (isDef(vnode.data.pendingInsert)) {
+      // TODO
     }
     vnode.elm = vnode.componentInstance.$el;
   }
