@@ -10,11 +10,6 @@ export function renderMixin(Vue) {
     let vnode;
     const { render, _parentVnode } = vm.$options;
     if (_parentVnode) {
-      // vm.$scopedSlots = normalizeScopedSlots(
-      //   _parentVnode.data.scopedSlots,
-      //   vm.$slots,
-      //   vm.$scopedSlots
-      // );
     }
     vm.$vnode = _parentVnode;
     // C("div", [C("h2", "bcd"), C("aaa", "123"), C("bbb", "123")]);
