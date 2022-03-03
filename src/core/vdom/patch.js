@@ -58,7 +58,6 @@ export function createPatchFunction(backend) {
 
   function initComponent(vnode, insertedVnodeQueue) {
     if (isDef(vnode.data.pendingInsert)) {
-      // TODO
     }
     vnode.elm = vnode.componentInstance.$el;
   }
