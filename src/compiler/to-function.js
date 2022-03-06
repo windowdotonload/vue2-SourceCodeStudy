@@ -6,6 +6,7 @@ export function createCompileToFunctionFn(compile) {
     res.render = function (C) {
       return C("div", [C("h2", "bcd"), C("aaa", "123")]);
     };
+    res.staticRenderFns = ["staticRenderFns"];
     return res;
   };
 }
