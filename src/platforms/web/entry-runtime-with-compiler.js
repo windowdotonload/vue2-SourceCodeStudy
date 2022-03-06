@@ -1,5 +1,7 @@
 import Vue from "./runtime/index";
 import { query } from "./utils/index";
+import { compileToFunctions } from "./compiler/index";
+
 const mount = Vue.prototype.$mount;
 Vue.prototype.$mount = function (el, hydrating) {
   el = query(el);
