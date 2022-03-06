@@ -1,5 +1,5 @@
 import { baseOptions } from "./options";
-import { createCompiler } from "compiler/index";
+import { createCompiler } from "../../../compiler/index";
 
 const { compile, compileToFunctions } = createCompiler(baseOptions);
 
