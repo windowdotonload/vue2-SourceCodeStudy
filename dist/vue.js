@@ -399,7 +399,7 @@
       let vnode;
       const { render, _parentVnode } = vm.$options;
       vm.$vnode = _parentVnode;
-      // C("div", [C("h2", "bcd"), C("aaa", "123"), C("bbb", "123")]);
+
       vnode = render.call(vm._renderProxy, vm.$createElement);
       console.log("this is vnode in renderMixin ===========>", vnode);
       return vnode;
@@ -604,15 +604,14 @@
       if (isDef(i)) {
         const isReactivated = isDef(vnode.componentInstance) && i.keepAlive;
         if (isDef((i = i.hook)) && isDef((i = i.init))) {
-          // 相当于调用componentVNodeHooks中的方法，componentVNodeHooks在create-component中定义的
-          // 创建出了一个子实例
+          // 相当于调用componentVNodeHooks中的方法，componentVNodeHooks在create-component中定义的, 创建出了一个子实例
           i(vnode, false);
         }
         if (isDef(vnode.componentInstance)) {
           initComponent(vnode);
           insert(parentElm, vnode.elm);
+          return true;
         }
-        return true;
       }
     }
 
@@ -650,9 +649,6 @@
           oldVnode = emptyNodeAt(oldVnode);
         }
         const oldElm = oldVnode.elm;
-        console.log("this is 【oldElm】 in patch of core/vom", oldVnode);
-        console.log("this is 【VNODE】 in patch of core/vom", vnode);
-
         const parentElm = nodeOps.parentNode(oldElm);
         console.log("this is parentElm in patch of core/vom", parentElm);
         createElm(vnode, insertedVnodeQueue, parentElm);
@@ -693,6 +689,29 @@
     }
   }
 
+  const baseOptions = {};
+
+  function createCompileToFunctionFn(compile) {
+    return function compileToFunctions(template, options, vm) {
+      compile();
+      console.log("this is compileToFunctions in compileToFunctions=====>");
+    };
+  }
+
+  function createCompilerCreator(baseCompile) {
+    return function createCompiler(baseOptions) {
+      function compile(template, options) {
+        console.log("this is compile in createCompiler");
+      }
+
+      return { compile, compileToFunctions: createCompileToFunctionFn(compile) };
+    };
+  }
+
+  const createCompiler = createCompilerCreator();
+
+  const { compile, compileToFunctions } = createCompiler(baseOptions);
+
   const mount = Vue.prototype.$mount;
   Vue.prototype.$mount = function (el, hydrating) {
     el = query(el);
@@ -709,17 +728,31 @@
       if (template) {
         if (typeof template === "string") {
           if (template.charAt(0) === "#") ; else if (template.nodeType) ; else {
+            // 不存在template
             console.warn("template not found");
             return this;
           }
         }
       }
       if (template) {
-        // TODO
-        let render = function (C) {
-          return C("div", [C("h2", "bcd"), C("aaa", "123")]);
-        };
-        options.render = render;
+        // let render = function (C) {
+        //   return C("div", [C("h2", "bcd"), C("aaa", "123")]);
+        // };
+
+        // const { render, staticRenderFns } =
+        compileToFunctions(
+          template,
+          {
+            // outputSourceRange: process.env.NODE_ENV !== "production",
+            // shouldDecodeNewlines,
+            // shouldDecodeNewlinesForHref,
+            // delimiters: options.delimiters,
+            // comments: options.comments,
+          },
+          this
+        );
+        // options.render = render;
+        options.render = null;
       }
     }
     mount.call(this, el, hydrating);

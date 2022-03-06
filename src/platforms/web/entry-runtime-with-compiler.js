@@ -34,18 +34,21 @@ Vue.prototype.$mount = function (el, hydrating) {
       // let render = function (C) {
       //   return C("div", [C("h2", "bcd"), C("aaa", "123")]);
       // };
-      const { render, staticRenderFns } = compileToFunctions(
+
+      // const { render, staticRenderFns } =
+      compileToFunctions(
         template,
         {
-          outputSourceRange: process.env.NODE_ENV !== "production",
-          shouldDecodeNewlines,
-          shouldDecodeNewlinesForHref,
-          delimiters: options.delimiters,
-          comments: options.comments,
+          // outputSourceRange: process.env.NODE_ENV !== "production",
+          // shouldDecodeNewlines,
+          // shouldDecodeNewlinesForHref,
+          // delimiters: options.delimiters,
+          // comments: options.comments,
         },
         this
       );
-      options.render = render;
+      // options.render = render;
+      options.render = null;
     }
   }
   mount.call(this, el, hydrating);
