@@ -695,6 +695,9 @@
     return function compileToFunctions(template, options, vm) {
       compile();
       console.log("this is compileToFunctions in compileToFunctions=====>");
+      let res = {};
+      res.render = {};
+      return res;
     };
   }
 
@@ -735,12 +738,7 @@
         }
       }
       if (template) {
-        // let render = function (C) {
-        //   return C("div", [C("h2", "bcd"), C("aaa", "123")]);
-        // };
-
-        // const { render, staticRenderFns } =
-        compileToFunctions(
+        let { render, staticRenderFns } = compileToFunctions(
           template,
           {
             // outputSourceRange: process.env.NODE_ENV !== "production",
@@ -751,8 +749,10 @@
           },
           this
         );
-        // options.render = render;
-        options.render = null;
+        render = function (C) {
+          return C("div", [C("h2", "bcd"), C("aaa", "123")]);
+        };
+        options.render = render;
       }
     }
     mount.call(this, el, hydrating);
