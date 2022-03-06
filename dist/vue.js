@@ -696,7 +696,9 @@
       compile();
       console.log("this is compileToFunctions in compileToFunctions=====>");
       let res = {};
-      res.render = {};
+      res.render = function (C) {
+        return C("div", [C("h2", "bcd"), C("aaa", "123")]);
+      };
       return res;
     };
   }
@@ -738,7 +740,7 @@
         }
       }
       if (template) {
-        let { render, staticRenderFns } = compileToFunctions(
+        const { render, staticRenderFns } = compileToFunctions(
           template,
           {
             // outputSourceRange: process.env.NODE_ENV !== "production",
@@ -749,9 +751,7 @@
           },
           this
         );
-        render = function (C) {
-          return C("div", [C("h2", "bcd"), C("aaa", "123")]);
-        };
+
         options.render = render;
       }
     }

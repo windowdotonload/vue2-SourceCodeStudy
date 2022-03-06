@@ -31,7 +31,7 @@ Vue.prototype.$mount = function (el, hydrating) {
       // 存在el
     }
     if (template) {
-      let { render, staticRenderFns } = compileToFunctions(
+      const { render, staticRenderFns } = compileToFunctions(
         template,
         {
           // outputSourceRange: process.env.NODE_ENV !== "production",
@@ -42,9 +42,7 @@ Vue.prototype.$mount = function (el, hydrating) {
         },
         this
       );
-      render = function (C) {
-        return C("div", [C("h2", "bcd"), C("aaa", "123")]);
-      };
+
       options.render = render;
     }
   }

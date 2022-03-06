@@ -3,7 +3,9 @@ export function createCompileToFunctionFn(compile) {
     compile();
     console.log("this is compileToFunctions in compileToFunctions=====>");
     let res = {};
-    res.render = {};
+    res.render = function (C) {
+      return C("div", [C("h2", "bcd"), C("aaa", "123")]);
+    };
     return res;
   };
 }
