@@ -31,6 +31,7 @@ Vue.prototype.$mount = function (el, hydrating) {
       // 存在el
     }
     if (template) {
+      // TODO
       const { render, staticRenderFns } = compileToFunctions(
         template,
         {
