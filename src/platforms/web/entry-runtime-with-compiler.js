@@ -16,19 +16,33 @@ Vue.prototype.$mount = function (el, hydrating) {
     if (template) {
       if (typeof template === "string") {
         if (template.charAt(0) === "#") {
+          // template是一个id
         } else if (template.nodeType) {
+          // template是html元素
         } else {
+          // 不存在template
           console.warn("template not found");
           return this;
         }
       }
     } else if (el) {
+      // 存在el
     }
     if (template) {
-      // TODO
-      let render = function (C) {
-        return C("div", [C("h2", "bcd"), C("aaa", "123")]);
-      };
+      // let render = function (C) {
+      //   return C("div", [C("h2", "bcd"), C("aaa", "123")]);
+      // };
+      const { render, staticRenderFns } = compileToFunctions(
+        template,
+        {
+          outputSourceRange: process.env.NODE_ENV !== "production",
+          shouldDecodeNewlines,
+          shouldDecodeNewlinesForHref,
+          delimiters: options.delimiters,
+          comments: options.comments,
+        },
+        this
+      );
       options.render = render;
     }
   }
