@@ -693,12 +693,13 @@
 
   function createCompileToFunctionFn(compile) {
     return function compileToFunctions(template, options, vm) {
-      compile();
-      console.log("this is compileToFunctions in compileToFunctions=====>");
       let res = {};
-      res.render = function (C) {
-        return C("div", [C("h2", "bcd"), C("aaa", "123")]);
-      };
+      const fnGenErrors = [];
+      // res.render = function (C) {
+      //   return C("div", [C("h2", "bcd"), C("aaa", "123")]);
+      // };
+      const compiled = compile(template, options);
+      res.render = createFunction(compiled.render, fnGenErrors);
       res.staticRenderFns = ["staticRenderFns"];
       return res;
     };
@@ -707,7 +708,7 @@
   function createCompilerCreator(baseCompile) {
     return function createCompiler(baseOptions) {
       function compile(template, options) {
-        console.log("this is compile in createCompiler");
+        console.log("this is compile in createCompiler", template, options);
       }
 
       return { compile, compileToFunctions: createCompileToFunctionFn(compile) };
@@ -741,6 +742,7 @@
         }
       }
       if (template) {
+        // TODO
         const { render, staticRenderFns } = compileToFunctions(
           template,
           {
