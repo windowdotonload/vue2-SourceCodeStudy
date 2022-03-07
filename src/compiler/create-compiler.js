@@ -5,6 +5,7 @@ export function createCompilerCreator(baseCompile) {
     function compile(template, options) {
       console.log("this is compile in createCompiler", template, options);
       const compiled = {};
+      // TODO
       return compiled;
     }
 
