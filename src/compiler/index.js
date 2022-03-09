@@ -14,4 +14,5 @@ export const createCompiler = createCompilerCreator(function baseCompile(
   //     render: code.render,
   //     staticRenderFns: code.staticRenderFns,
   //   };
+  return {};
 });
