@@ -1,4 +1,6 @@
 import { createCompilerCreator } from "./create-compiler";
+import { parse } from "./parser/index";
+import { generate } from "./codegen/index";
 
 export const createCompiler = createCompilerCreator(function baseCompile(
   template,
