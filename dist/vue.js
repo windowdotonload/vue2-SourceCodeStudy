@@ -35,7 +35,7 @@
     }
   }
 
-  function noop(a, b, c) {}
+  function noop$1(a, b, c) {}
 
   const no = (a, b, c) => {
     return a.includes("div") || a.includes("h");
@@ -210,7 +210,7 @@
     new Watcher(
       vm,
       updateComponent,
-      noop,
+      noop$1,
       {
         //   before() {
         //     if (vm._isMounted && !vm._isDestroyed) {
@@ -691,6 +691,15 @@
 
   const baseOptions = {};
 
+  function createFunction(code, errors) {
+    try {
+      return new Function(code);
+    } catch (err) {
+      errors.push({ err, code });
+      return noop;
+    }
+  }
+
   function createCompileToFunctionFn(compile) {
     return function compileToFunctions(template, options, vm) {
       let res = {};
@@ -709,13 +718,42 @@
     return function createCompiler(baseOptions) {
       function compile(template, options) {
         console.log("this is compile in createCompiler", template, options);
+        const finalOptions = Object.create(baseOptions);
+        const compiled = baseCompile(template.trim(), finalOptions);
+        return compiled;
       }
 
       return { compile, compileToFunctions: createCompileToFunctionFn(compile) };
     };
   }
 
-  const createCompiler = createCompilerCreator();
+  function parse(template, options) {
+    let root;
+    return root;
+  }
+
+  function generate(ast, options) {
+    return {
+      render: `with(this){return ${code}}`,
+      staticRenderFns: state.staticRenderFns,
+    };
+  }
+
+  const createCompiler = createCompilerCreator(function baseCompile(
+    template,
+    options
+  ) {
+    const ast = parse(template.trim());
+    //   if (options.optimize !== false) {
+    //     optimize(ast, options);
+    //   }
+    const code = generate();
+    return {
+      ast,
+      render: code.render,
+      staticRenderFns: code.staticRenderFns,
+    };
+  });
 
   const { compile, compileToFunctions } = createCompiler(baseOptions);
 
