@@ -8,5 +8,9 @@ export function parseHTML(html, options) {
     last = html;
     if (!lastTag || !isPlainTextElement(lastTag)) {
     }
+
+    if (html === last) {
+      break;
+    }
   }
 }
