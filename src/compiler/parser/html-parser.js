@@ -1,4 +1,4 @@
-import { makeMap, no } from "shared/util";
+import { makeMap, no } from "../../shared/util";
 
 export const isPlainTextElement = makeMap("script,style,textarea", true);
 
