@@ -73,6 +73,15 @@
     return hasOwnProperty.call(obj, key);
   }
 
+  function makeMap(str, expectsLowerCase) {
+    const map = Object.create(null);
+    const list = str.split(",");
+    for (let i = 0; i < list.length; i++) {
+      map[list[i]] = true;
+    }
+    return expectsLowerCase ? (val) => map[val.toLowerCase()] : (val) => map[val];
+  }
+
   var config = {
     isReservedTag: no,
     parsePlatformTagName: identity,
@@ -727,6 +736,8 @@
     };
   }
 
+  const isPlainTextElement = makeMap("script,style,textarea", true);
+
   function parse(template, options) {
     let root;
     return root;
@@ -744,9 +755,6 @@
     options
   ) {
     const ast = parse(template.trim());
-    //   if (options.optimize !== false) {
-    //     optimize(ast, options);
-    //   }
     const code = generate();
     return {
       ast,
