@@ -8,6 +8,10 @@ export function parseHTML(html, options) {
   while (html) {
     last = html;
     if (!lastTag || !isPlainTextElement(lastTag)) {
+      let textEnd = html.indexOf("<");
+      if (textEnd === 0) {
+        console.log("this is in parseHTML");
+      }
     }
 
     if (html === last) {
