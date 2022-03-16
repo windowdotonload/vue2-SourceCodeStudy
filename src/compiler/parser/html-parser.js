@@ -12,6 +12,11 @@ export function parseHTML(html, options) {
       if (textEnd === 0) {
         console.log("this is in parseHTML");
       }
+      if (textEnd >= 0) {
+      }
+
+      if (textEnd < 0) {
+      }
     }
 
     if (html === last) {
