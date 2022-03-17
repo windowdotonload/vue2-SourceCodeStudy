@@ -13,9 +13,11 @@ export function parseHTML(html, options) {
         console.log("this is in parseHTML");
       }
       if (textEnd >= 0) {
+        //   TODO
       }
 
       if (textEnd < 0) {
+        //   TODO
       }
     }
 
