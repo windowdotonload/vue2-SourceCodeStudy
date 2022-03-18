@@ -10,7 +10,20 @@ export function parseHTML(html, options) {
     if (!lastTag || !isPlainTextElement(lastTag)) {
       let textEnd = html.indexOf("<");
       if (textEnd === 0) {
-        console.log("this is in parseHTML");
+        if (comment.test(html)) {
+          const commentEnd = html.indexOf("-->");
+          if (commentEnd >= 0) {
+            if (options.shouldKeepComment) {
+              options.comment(
+                html.substring(4, commentEnd),
+                index,
+                index + commentEnd + 3
+              );
+            }
+            advance(commentEnd + 3);
+            continue;
+          }
+        }
       }
       if (textEnd >= 0) {
         //   TODO
