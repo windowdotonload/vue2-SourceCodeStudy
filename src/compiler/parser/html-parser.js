@@ -30,7 +30,6 @@ export function parseHTML(html, options) {
       }
 
       if (textEnd < 0) {
-        //   TODO
       }
     }
 

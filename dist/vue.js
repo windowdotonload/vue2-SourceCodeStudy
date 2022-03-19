@@ -738,8 +738,44 @@
 
   const isPlainTextElement = makeMap("script,style,textarea", true);
 
+  function parseHTML(html, options) {
+    let last;
+    while (html) {
+      last = html;
+      {
+        let textEnd = html.indexOf("<");
+        if (textEnd === 0) {
+          if (comment.test(html)) {
+            const commentEnd = html.indexOf("-->");
+            if (commentEnd >= 0) {
+              if (options.shouldKeepComment) {
+                options.comment(
+                  html.substring(4, commentEnd),
+                  index,
+                  index + commentEnd + 3
+                );
+              }
+              advance(commentEnd + 3);
+              continue;
+            }
+          }
+        }
+      }
+
+      if (html === last) {
+        break;
+      }
+    }
+  }
+
   function parse(template, options) {
     let root;
+    parseHTML(template, {
+      start(tag, attrs, unary, start, end) {},
+      end(tag, start, end) {},
+      chars(text, start, end) {},
+      comment(text, start, end) {},
+    });
     return root;
   }
 
