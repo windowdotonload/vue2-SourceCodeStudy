@@ -20,13 +20,12 @@ export function parseHTML(html, options) {
                 index + commentEnd + 3
               );
             }
-            // advance(commentEnd + 3);
+
             continue;
           }
         }
       }
       if (textEnd >= 0) {
-       
       }
 
       if (textEnd < 0) {
