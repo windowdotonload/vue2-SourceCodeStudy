@@ -14,6 +14,8 @@ export function initMixin(Vue) {
     // this 指向的是实例 ，父组件调用就是指向的父实例，子组件调用就是指向的子实例
     const vm = this;
     if (options && options._isComponent) {
+      // 初始化子组件
+      // 在此之前有了Vue.extend
       initInternalComponent(vm, options);
     } else {
       vm.$options = mergeOptions(
